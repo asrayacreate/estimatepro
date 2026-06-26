@@ -196,11 +196,61 @@
   .ffe-toggle svg{width:13px;height:13px}
   .ffe-toggle:hover{border-color:var(--navy)}
   .ffe-toggle[aria-pressed="true"]{background:var(--gold);color:#3a2300;border-color:var(--gold)}
+  .margin-toggle[aria-pressed="true"]{background:#1c7a44;color:#fff;border-color:#1c7a44}
+  #marginPanel{margin-top:12px}
+  .mg-card{border:1px solid #1c7a44;border-radius:12px;overflow:hidden;background:var(--paper)}
+  .mg-head{display:flex;align-items:center;gap:8px;background:#1c7a44;color:#fff;font-size:12px;font-weight:700;padding:9px 13px}
+  .mg-head svg{width:15px;height:15px;flex:none}
+  .mg-warn{margin-left:auto;font-size:9.5px;font-weight:600;opacity:.9;font-family:var(--mono)}
+  .mg-tbl{width:100%;border-collapse:collapse}
+  .mg-tbl th{font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);font-weight:700;padding:7px 11px;border-bottom:1px solid var(--line);text-align:left}
+  .mg-tbl th.r,.mg-tbl td.r{text-align:right}
+  .mg-tbl td{font-size:12px;padding:7px 11px;border-bottom:1px solid var(--line);color:var(--ink);font-family:var(--mono)}
+  .mg-tbl td:first-child{font-family:inherit;font-weight:600}
+  .mg-tbl td.pos{color:#1c7a44;font-weight:700}
+  .mg-tbl td.neg{color:#c0392b;font-weight:700}
+  .mg-tot td{background:var(--canvas);font-weight:800;border-top:2px solid #1c7a44}
+  .mg-in{display:inline-flex;align-items:center;background:var(--canvas);border:1px solid var(--line-strong);border-radius:7px;overflow:hidden}
+  .mg-in span{font-size:9px;color:var(--ink-soft);padding:0 1px 0 7px}
+  .mg-in input{border:none;background:transparent;outline:none;width:72px;font-family:var(--mono);font-size:12px;font-weight:700;text-align:right;padding:6px 7px 6px 2px;color:var(--ink)}
+  .mg-in input::-webkit-outer-spin-button,.mg-in input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
   .boq-tbl.pro7 tr.ffe-row td{background:color-mix(in srgb,var(--gold) 8%,#fff);padding:0 7px 9px}
   .ffe-meta{display:flex;gap:10px;flex-wrap:wrap}
   .ffe-meta label{flex:1;min-width:130px;display:flex;flex-direction:column;gap:3px;font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft)}
   .ffe-meta input{border:1px solid var(--line-strong);background:#fff;border-radius:7px;padding:7px 9px;font-family:inherit;font-size:12px;color:var(--ink);outline:none;font-weight:500;text-transform:none;letter-spacing:0}
   .ffe-meta input:focus{border-color:var(--navy)}
+  /* Nepali popout calendar */
+  .npc-trigger{display:flex;align-items:center;gap:6px}
+  .npc-trigger input{flex:1;cursor:pointer}
+  #cDateBSbtn{flex:none;width:38px;height:38px;border:1px solid var(--line-strong);background:var(--paper);border-radius:9px;color:var(--navy);cursor:pointer;display:flex;align-items:center;justify-content:center}
+  #cDateBSbtn:hover{border-color:var(--navy);background:color-mix(in srgb,var(--navy) 8%,#fff)}
+  #cDateBSbtn svg{width:17px;height:17px}
+  .npc-pop{position:absolute;top:100%;left:0;right:0;margin-top:6px;z-index:60;background:var(--paper);border:1px solid var(--line-strong);border-radius:14px;box-shadow:0 16px 44px rgba(19,33,58,.28);padding:13px;display:none}
+  .npc-pop.open{display:block;animation:npcIn .16s ease}
+  @keyframes npcIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+  .npc-head{display:flex;align-items:center;gap:5px;margin-bottom:11px}
+  .npc-title{flex:1;text-align:center;font-size:14px;font-weight:600;color:var(--ink-soft)}
+  .npc-title b{color:var(--navy);font-weight:800}
+  .npc-nav{width:30px;height:30px;border:1px solid var(--line);background:var(--canvas);border-radius:8px;color:var(--ink);cursor:pointer;font-size:15px;line-height:1;display:flex;align-items:center;justify-content:center}
+  .npc-nav:hover{border-color:var(--navy);color:var(--navy)}
+  .npc-wk{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:4px}
+  .npc-wk span{text-align:center;font-size:9.5px;font-weight:700;color:var(--ink-soft);padding:3px 0}
+  .npc-wk span:first-child{color:#c0392b}
+  .npc-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+  .npc-cell{aspect-ratio:1;border:1px solid transparent;background:var(--canvas);border-radius:9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:2px;transition:.1s}
+  .npc-cell.empty{background:transparent;cursor:default}
+  .npc-cell:not(.empty):hover{border-color:var(--navy);background:color-mix(in srgb,var(--navy) 9%,#fff)}
+  .npc-cell .bd{font-size:14px;font-weight:700;color:var(--ink);line-height:1}
+  .npc-cell .ad{font-size:8.5px;color:var(--ink-soft);font-family:var(--mono);line-height:1}
+  .npc-cell.today{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 14%,#fff)}
+  .npc-cell.today .bd{color:#9a6a12}
+  .npc-cell.sel{background:var(--navy);border-color:var(--navy)}
+  .npc-cell.sel .bd{color:#fff}
+  .npc-cell.sel .ad{color:rgba(255,255,255,.7)}
+  .npc-oor{grid-column:1/-1;text-align:center;color:var(--ink-soft);font-size:12px;padding:20px}
+  .npc-foot{display:flex;justify-content:center;margin-top:10px}
+  #npcToday{border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:8px;padding:7px 18px;font-family:var(--mono);font-size:11px;font-weight:700;cursor:pointer}
+  #npcToday:hover{background:var(--navy-d)}
 
   /* BOQ table (in drawer) */
   .boq-tbl{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:14px}
@@ -694,6 +744,16 @@
   .st-approved{background:#d8f0e0;color:#1c7a44}
   .st-pick{display:flex;align-items:center;gap:6px}
   .st-pick>span{font-size:11px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;margin-right:auto}
+  .mile-box{display:flex;flex-direction:column;gap:8px;background:var(--canvas);border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+  .mile-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .mile-row label{font-size:11.5px;font-weight:600;color:var(--ink-soft)}
+  .mile-row .mile-val{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--ink)}
+  .mile-row.bal{border-top:1px solid var(--line);padding-top:8px}
+  .mile-row.bal .mile-bal{color:#c0392b;font-size:14px}
+  .mile-in{display:flex;align-items:center;background:var(--paper);border:1px solid var(--line-strong);border-radius:8px;overflow:hidden}
+  .mile-in span{font-family:var(--mono);font-size:10px;color:var(--ink-soft);padding:0 2px 0 9px}
+  .mile-in input{border:none;background:transparent;outline:none;width:96px;font-family:var(--mono);font-size:13px;font-weight:700;text-align:right;padding:8px 9px 8px 2px;color:var(--ink)}
+  .mile-in input::-webkit-outer-spin-button,.mile-in input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
   .st-opt{border:1px solid var(--line-strong);background:var(--canvas);border-radius:7px;padding:6px 11px;font-family:var(--mono);font-size:10.5px;font-weight:700;cursor:pointer;color:var(--ink-soft)}
   .st-opt[aria-pressed="true"].st-draft{background:#6b7689;color:#fff;border-color:#6b7689}
   .st-opt[aria-pressed="true"].st-sent{background:#d9911f;color:#fff;border-color:#d9911f}
@@ -921,7 +981,20 @@
         <div class="cfield"><label>Site address</label><input id="cSite" placeholder="ठेगाना"></div>
         <div class="cfield"><label>Project name</label><input id="cProject" placeholder="e.g. Mr. Ram Villa"></div>
         <div class="cfield"><label>English date (AD)</label><input type="date" id="cDateAD"></div>
-        <div class="cfield"><label>Nepali date (BS) — auto</label><input id="cDateBS" placeholder="२०ը३-०३-१२" inputmode="text"></div>
+        <div class="cfield" style="position:relative"><label>Nepali date (BS)</label><div class="npc-trigger"><input id="cDateBS" placeholder="२०ը३-०३-१२" inputmode="text" readonly><button type="button" id="cDateBSbtn" title="पात्रो खोल्नुहोस्"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></button></div>
+          <div class="npc-pop" id="npCalPop">
+            <div class="npc-head">
+              <button type="button" class="npc-nav" id="npcPY" title="अघिलो वर्ष">«</button>
+              <button type="button" class="npc-nav" id="npcPM" title="अघिलो महिना">‹</button>
+              <div class="npc-title"></div>
+              <button type="button" class="npc-nav" id="npcNM" title="अर्को महिना">›</button>
+              <button type="button" class="npc-nav" id="npcNY" title="अर्को वर्ष">»</button>
+            </div>
+            <div class="npc-wk">${["आइत","सोम","मङ्गल","बुध","बिहि","शुक्र","शनि"].map(d=>`<span>${d}</span>`).join("")}</div>
+            <div class="npc-grid"></div>
+            <div class="npc-foot"><button type="button" id="npcToday">आज</button></div>
+          </div>
+        </div>
         <div class="cfield full"><label>Show on print</label><select id="cDatePrint"><option value="both">Both (BS + AD)</option><option value="np">Nepali (BS) only</option><option value="en">English (AD) only</option></select></div>
         <div class="cfield full"><label>Document type</label><select id="cDocType"><option>Quotation</option><option>Project Proposal</option><option>Tax Invoice</option><option>FF&amp;E Schedule</option><option>Estimate</option></select></div>
         <button class="full" id="cSaveClient" style="border:1px solid var(--line-strong);background:var(--canvas);color:var(--ink);font-family:var(--mono);font-size:11px;font-weight:700;padding:9px;border-radius:8px;cursor:pointer">＋ Save client to address book</button>
@@ -934,12 +1007,14 @@
       <div class="boq-bar">
         <span class="lab">Master BOQ</span>
         <button class="ffe-toggle" id="ffeToggle" title="Switch to FF&amp;E Schedule (interior)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18M3 15h18M9 3v18"/></svg>FF&amp;E</button>
+        <button class="ffe-toggle margin-toggle" id="marginToggle" title="Admin only — show cost vs client rate &amp; profit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Profit</button>
         <span class="view-toggle" id="viewToggle">
           <button data-val="client" title="Client view — totals only"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>Client</button>
           <button data-val="detailed" title="Detailed — full material breakdown"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Detailed</button>
         </span>
       </div>
       <div id="boqWrap"></div>
+      <div id="marginPanel"></div>
       <div class="line-builder">
         <div class="lb-head">➕ Add Custom Work / Service</div>
         <div class="lb-lib">
@@ -1224,6 +1299,16 @@ const CATS={
   brick:{nm:"Brick Work",desc:"Wall masonry — bricks, cement, sand",grp:"Structure",measure:"area",rowDef:{no:1,l:10,h:9},
     calc(Q,s,w){const wall=Q*(s.brickWall/12),bricks=Math.ceil(wall/0.0661*w),mortar=wall*0.30,dry=mortar*DRYP,sum=1+s.brickMortar;
       return{rows:[ro("Bricks",bricks,"pcs","brick",true),ro("Cement",dry/sum/BAG*w,"bags","cement"),ro("Sand",dry*s.brickMortar/sum*w,"cu.ft","sand")],sub:`${fx(Q,0)} sq.ft net · ${s.brickWall}" wall · 1:${s.brickMortar}`};}},
+  earth:{nm:"Earthwork Excavation",desc:"Excavation / cutting by volume",grp:"Structure",measure:"vol",rowDef:{no:1,l:10,w:5,h:3},
+    calc(Q,s,w){return{rows:[ro("Excavation",Q,"cu.ft","earth")],sub:`${fx(Q,2)} cu.ft net · excavation`};}},
+  rebar:{nm:"Reinforcement / Steel",desc:"Steel rod cutting, bending &amp; binding",grp:"Structure",measure:"count",countLabel:"Steel weight",countUnit:"kg",countStep:"1",countDef:1000,
+    calc(Q,s,w){return{rows:[ro("Steel rod",Q,"kg","steel"),ro("Binding wire",Q*0.01,"kg","bindwire")],sub:`${fx(Q,0)} kg · rod + binding wire`};}},
+  formwork:{nm:"Formwork / Shuttering",desc:"Shuttering contact area",grp:"Structure",measure:"area",rowDef:{no:1,l:10,h:10},
+    calc(Q,s,w){return{rows:[ro("Shuttering area",Q,"sq.ft","formwork")],sub:`${fx(Q,0)} sq.ft net · contact area`};}},
+  dpc:{nm:"DPC (Damp Proof)",desc:"Damp proof course layer",grp:"Structure",measure:"area",rowDef:{no:1,l:100,h:0.75},
+    calc(Q,s,w){return{rows:[ro("DPC layer",Q,"sq.ft","dpc")],sub:`${fx(Q,0)} sq.ft net · DPC`};}},
+  aac:{nm:"AAC Block Work",desc:"AAC block masonry with adhesive",grp:"Structure",measure:"area",rowDef:{no:1,l:10,h:9},
+    calc(Q,s,w){const blocks=Math.ceil(Q/2.0*w);return{rows:[ro("AAC blocks",blocks,"pcs","aacblock",true),ro("Block area",Q,"sq.ft","aac"),ro("Adhesive",Math.ceil(Q/45*w),"bags","aacglue",true)],sub:`${fx(Q,0)} sq.ft net · AAC + adhesive`};}},
   plaster:{nm:"Plaster Work",desc:"Wall / ceiling plaster — cement &amp; sand",grp:"Finishing",measure:"area",rowDef:{no:1,l:10,h:9},
     calc(Q,s,w){const wet=Q*(s.thick/304.8),dry=wet*DRYP,sum=1+s.mortar;
       return{rows:[ro("Cement",dry/sum/BAG*w,"bags","cement"),ro("Sand",dry*s.mortar/sum*w,"cu.ft","sand")],sub:`${fx(Q,0)} sq.ft net · ${s.thick}mm · 1:${s.mortar}`};}},
@@ -1244,6 +1329,12 @@ const CATS={
     calc(Q,s,w){return{rows:[ro("Cabinet run",Q,"r.ft","kitchen"),ro("Plywood",Math.ceil(Q*0.9),"sheets","ply",true)],sub:`${fx(Q,1)} r.ft net · ${s.kitchenFin} finish`};}},
   wardrobe:{nm:"Wardrobe",desc:"Storage face area — ply &amp; laminate",grp:"Interior",measure:"area",rowDef:{no:1,l:8,h:7},
     calc(Q,s,w){return{rows:[ro("Face area",Q,"sq.ft","wardrobe"),ro("Plywood",Math.ceil(Q/24),"sheets","ply",true)],sub:`${fx(Q,0)} sq.ft net face`};}},
+  prefab:{nm:"Prefab Panel Work",desc:"EPS / sandwich panel by area",grp:"Interior",measure:"area",rowDef:{no:1,l:10,h:9},
+    calc(Q,s,w){return{rows:[ro("Prefab panel",Q,"sq.ft","prefab")],sub:`${fx(Q,0)} sq.ft net · prefab panel`};}},
+  parquet:{nm:"Parquet Flooring",desc:"8mm parquet / laminate flooring",grp:"Interior",measure:"area",rowDef:{no:1,l:12,h:10},
+    calc(Q,s,w){return{rows:[ro("Parquet 8mm",Q*w,"sq.ft","parquet"),ro("Underlay foam",Q,"sq.ft","underlay")],sub:`${fx(Q,0)} sq.ft net · 8mm parquet`};}},
+  skylight:{nm:"Solar Tube / Skylight",desc:"Daylight tube / skylight units",grp:"Interior",measure:"area",rowDef:{no:1,l:4,h:4},
+    calc(Q,s,w){return{rows:[ro("Skylight area",Q,"sq.ft","skylight"),ro("Units",Math.ceil(Q/16),"nos",null,true)],sub:`${fx(Q,0)} sq.ft net · skylight`};}},
   solar:{nm:"Solar PV",desc:"Panels + inverter by system size",grp:"MEP",measure:"count",countLabel:"System size",countUnit:"kW",countStep:"0.5",countDef:3,
     calc(Q,s,w){const panels=Math.ceil(Q*1000/s.panelW);
       return{rows:[ro("Capacity",Q*1000,"watt","solar"),ro("Panels",panels,`@${s.panelW}W`,null,true),ro("Inverter",Math.ceil(Q),"kW",null,true)],sub:`${fx(Q,1)} kW · ${panels}× ${s.panelW}W panel`};}},
@@ -1265,6 +1356,9 @@ const RATEMETA={
   mspaint:{label:"MS Primer &amp; Enamel",fixed:"L"},
   wardrobe:{label:"Wardrobe",grp:"area"},ply:{label:"Plywood",fixed:"sheet"},solar:{label:"Solar",fixed:"watt"},
   elec:{label:"Elec point",fixed:"pt"},plumb:{label:"Plumb point",fixed:"pt"},
+  earth:{label:"Excavation",grp:"vol"},bindwire:{label:"Binding wire",fixed:"kg"},formwork:{label:"Shuttering",grp:"area"},
+  dpc:{label:"DPC",grp:"area"},aac:{label:"AAC block work",grp:"area"},aacblock:{label:"AAC block",fixed:"pc"},aacglue:{label:"AAC adhesive",fixed:"bag"},
+  prefab:{label:"Prefab panel",grp:"area"},parquet:{label:"Parquet 8mm",grp:"area"},underlay:{label:"Underlay foam",grp:"area"},skylight:{label:"Skylight",grp:"area"},
 };
 // material row; cost auto-converts when rate's unit differs from the imperial base qty
 function ro(n,val,u,key,int){
@@ -1278,7 +1372,7 @@ function ro(n,val,u,key,int){
   return{n,val,u,int:!!int,rate,rateU,grp,rateKey:key||null,cost};
 }
 function gradeName(x){return({"1:2:4":"15","1:1.5:3":"20","1:1:2":"25"})[x]||"";}
-function catRateKeys(c){return({rcc:["cement","sand","agg","steel"],pcc:["cement","sand","agg"],brick:["brick","cement","sand"],plaster:["cement","sand"],tile:["tile","cement","sand"],paint:["paint","primer","putty"],gypsum:["gypsum","channel"],roof:["sheet","trussRate","purlin","ridge","bolt","mspaint"],upvc:["upvc"],kitchen:["kitchen","ply"],wardrobe:["wardrobe","ply"],solar:["solar"],elec:["elec"],plumb:["plumb"]})[c]||[];}
+function catRateKeys(c){return({rcc:["cement","sand","agg","steel"],pcc:["cement","sand","agg"],brick:["brick","cement","sand"],earth:["earth"],rebar:["steel","bindwire"],formwork:["formwork"],dpc:["dpc"],aac:["aacblock","aac","aacglue"],prefab:["prefab"],parquet:["parquet","underlay"],skylight:["skylight"],plaster:["cement","sand"],tile:["tile","cement","sand"],paint:["paint","primer","putty"],gypsum:["gypsum","channel"],roof:["sheet","trussRate","purlin","ridge","bolt","mspaint"],upvc:["upvc"],kitchen:["kitchen","ply"],wardrobe:["wardrobe","ply"],solar:["solar"],elec:["elec"],plumb:["plumb"]})[c]||[];}
 // BOQ material/labour line — qty shown in the rate's unit so qty × rate = amount exactly
 function boqMat(r){
   if(r.lab){const u=r.u||"day",lbl=laborUnitLabel(u);return{qty:fx(r.val,2)+" "+lbl,rate:r.rate?money(r.rate)+" /"+(u==="day"?"day":lbl):"—",amt:r.cost>0?money(r.cost):"—"};}
@@ -1304,7 +1398,7 @@ const DEFAULT_PROFILE={
   phone:"",phone2:"",email:"info@yourcompany.com",initials:"YC",logoImg:"",currency:"Rs",pin:"",theme:"prerak",
   license:{plan:"Pro",validUntil:"Lifetime",key:""},
   contract:"1. This agreement is valid for 15 days from the date of proposal.\n2. Payment milestones: 40% advance to commence work, 40% on completion of structure/mid-stage, 20% on final handover.\n3. Scope covers only the items listed in the BOQ/schedule above; any additional work will be quoted separately.\n4. Material rates may vary with market conditions; major variations will be communicated in advance.\n5. Project timeline will be mutually agreed in writing before commencement.\n6. Any dispute shall be settled amicably as per prevailing local laws.",
-  rates:{cement:{v:800,u:"bag"},sand:{v:60,u:"cft"},agg:{v:80,u:"cft"},steel:{v:110,u:"kg"},brick:{v:18,u:"pc"},tile:{v:95,u:"sft"},paint:{v:650,u:"L"},primer:{v:350,u:"L"},putty:{v:45,u:"kg"},gypsum:{v:85,u:"sft"},channel:{v:60,u:"rft"},sheet:{v:950,u:"pc"},trussRate:{v:115,u:"kg"},purlin:{v:115,u:"kg"},ridge:{v:140,u:"rft"},bolt:{v:15,u:"pc"},mspaint:{v:550,u:"L"},upvc:{v:950,u:"sft"},kitchen:{v:1850,u:"rft"},wardrobe:{v:1600,u:"sft"},ply:{v:2600,u:"sheet"},solar:{v:90,u:"watt"},elec:{v:1200,u:"pt"},plumb:{v:1500,u:"pt"}},
+  rates:{cement:{v:800,u:"bag"},sand:{v:60,u:"cft"},agg:{v:80,u:"cft"},steel:{v:110,u:"kg"},brick:{v:18,u:"pc"},tile:{v:95,u:"sft"},paint:{v:650,u:"L"},primer:{v:350,u:"L"},putty:{v:45,u:"kg"},gypsum:{v:85,u:"sft"},channel:{v:60,u:"rft"},sheet:{v:950,u:"pc"},trussRate:{v:115,u:"kg"},purlin:{v:115,u:"kg"},ridge:{v:140,u:"rft"},bolt:{v:15,u:"pc"},mspaint:{v:550,u:"L"},upvc:{v:950,u:"sft"},kitchen:{v:1850,u:"rft"},wardrobe:{v:1600,u:"sft"},ply:{v:2600,u:"sheet"},solar:{v:90,u:"watt"},elec:{v:1200,u:"pt"},plumb:{v:1500,u:"pt"},earth:{v:35,u:"cft"},bindwire:{v:120,u:"kg"},formwork:{v:55,u:"sft"},dpc:{v:48,u:"sft"},aac:{v:62,u:"sft"},aacblock:{v:78,u:"pc"},aacglue:{v:680,u:"bag"},prefab:{v:185,u:"sft"},parquet:{v:165,u:"sft"},underlay:{v:18,u:"sft"},skylight:{v:850,u:"sft"}},
   labor:{mason:{v:1200,u:"day"},helper:{v:800,u:"day"},carpenter:{v:1400,u:"day"},fabricator:{v:25,u:"kg"},fitter:{v:1300,u:"day"},tiler:{v:1300,u:"day"},painter:{v:1100,u:"day"},electrician:{v:1300,u:"day"},plumber:{v:1300,u:"day"}},
 };
 function normLabor(lab){const out={};for(const k in DEFAULT_PROFILE.labor){const dv=DEFAULT_PROFILE.labor[k];let cur=lab&&lab[k];if(cur==null)out[k]={v:dv.v,u:dv.u};else if(typeof cur==="number")out[k]={v:cur,u:"day"};else out[k]={v:cur.v!=null?cur.v:dv.v,u:cur.u||dv.u};}return out;}
@@ -1645,6 +1739,9 @@ const LABORDEF={
   upvc:[["fitter",60],["helper",120]],kitchen:[["carpenter",4],["helper",4]],
   wardrobe:[["carpenter",26],["helper",26]],solar:[["electrician",0.7],["helper",0.7]],
   elec:[["electrician",6],["helper",6]],plumb:[["plumber",5],["helper",5]],
+  earth:[["helper",55]],rebar:[["mason",350],["helper",350]],formwork:[["carpenter",120],["helper",120]],
+  dpc:[["mason",180],["helper",180]],aac:[["mason",90],["helper",90]],
+  prefab:[["carpenter",120],["helper",120]],parquet:[["carpenter",150],["helper",150]],skylight:[["fitter",30],["helper",30]],
 };
 function measGrp(cat){const c=CATS[cat];return c.measure==="count"?null:MEASURE[c.measure].grp;}
 function netUnit(cat){const gp=measGrp(cat);if(!gp)return CATS[cat].countUnit;return GROUP_UNITS[gp][state.settings.units[gp]==="met"?1:0][0];}
@@ -1968,9 +2065,10 @@ function renderQuote(){
   if(!document.getElementById("catPick").options.length)document.getElementById("catPick").innerHTML=Object.entries(CATS).map(([k,c])=>`<option value="${k}">${c.nm}</option>`).join("");
   document.querySelectorAll("#viewToggle button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.val===q.view));
   const ffeBtn=document.getElementById("ffeToggle");if(ffeBtn)ffeBtn.setAttribute("aria-pressed",!!q.ffe);
+  const mgBtn=document.getElementById("marginToggle");if(mgBtn)mgBtn.setAttribute("aria-pressed",!!q.margin);
   if(!q.items.length){
     boqWrap.innerHTML=`<div class="boq-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><br>No items yet.<br>Workspace बाट "Add to BOQ" थिच्नुस्।</div>`;
-    totalsEl.style.display="none";document.getElementById("tcBlock").style.display="none";return;
+    totalsEl.style.display="none";document.getElementById("tcBlock").style.display="none";const mp=document.getElementById("marginPanel");if(mp)mp.innerHTML="";return;
   }
   totalsEl.style.display="block";
   const tcb=document.getElementById("tcBlock");tcb.style.display="block";document.getElementById("tcArea").value=q.terms||"";refreshTermTplDropdown();
@@ -2049,6 +2147,7 @@ function renderQuote(){
   document.getElementById("discIn").addEventListener("input",e=>{state.quote.discount=Math.max(0,Math.min(100,parseFloat(e.target.value)||0));save();renderQuote();});
   document.getElementById("vatTog").addEventListener("click",()=>{state.quote.vat=!state.quote.vat;save();renderQuote();});
   const tcEl=document.getElementById("tcArea");if(tcEl)tcEl.addEventListener("input",e=>{state.quote.terms=e.target.value;save();});
+  renderMargin();
 }
 document.getElementById("cName").addEventListener("input",e=>{state.quote.client=e.target.value;save();});
 document.getElementById("cProject").addEventListener("input",e=>{state.quote.project=e.target.value;save();});
@@ -2059,6 +2158,23 @@ document.getElementById("cPhone").addEventListener("input",e=>{state.quote.phone
 document.getElementById("cSite").addEventListener("input",e=>{state.quote.site=e.target.value;save();});
 document.querySelectorAll("#viewToggle button").forEach(b=>b.addEventListener("click",()=>{state.quote.view=b.dataset.val;save();renderQuote();}));
 {const ffeBtn=document.getElementById("ffeToggle");if(ffeBtn)ffeBtn.addEventListener("click",()=>{state.quote.ffe=!state.quote.ffe;save();renderQuote();toast(state.quote.ffe?"FF&E Schedule mode ✓":"Standard BOQ mode");});}
+{const mB=document.getElementById("marginToggle");if(mB)mB.addEventListener("click",()=>{state.quote.margin=!state.quote.margin;save();mB.setAttribute("aria-pressed",!!state.quote.margin);renderMargin();toast(state.quote.margin?"🔒 Admin: profit margin ON (ग्राहकलाई देखिंदैन)":"Profit margin hidden");});}
+function renderMargin(){
+  const mp=document.getElementById("marginPanel");if(!mp)return;
+  const q=state.quote;
+  if(!q.margin){mp.innerHTML="";mp.classList.remove("open");return;}
+  mp.classList.add("open");
+  let rows="",totCost=0,totClient=0;
+  q.items.forEach((it,i)=>{const client=+it.amount||0;if(it.cost==null)it.cost=Math.round(client*0.8);const cost=+it.cost||0,prof=client-cost,pct=client>0?(prof/client*100):0;
+    totCost+=cost;totClient+=client;
+    rows+=`<tr><td>${esc(it.cat)}</td><td class="r"><div class="mg-in"><span>${profile.currency}</span><input type="number" min="0" step="any" class="mg-cost" data-i="${i}" value="${cost}"></div></td><td class="r">${money(client)}</td><td class="r ${prof>=0?'pos':'neg'}">${money(prof)}</td><td class="r ${prof>=0?'pos':'neg'}">${pct.toFixed(0)}%</td></tr>`;});
+  const tProf=totClient-totCost,tPct=totClient>0?(tProf/totClient*100):0;
+  mp.innerHTML=`<div class="mg-card"><div class="mg-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Profit Margin — Admin Only <span class="mg-warn">ग्राहकको print/PDF मा देखिंदैन</span></div>
+    <table class="mg-tbl"><thead><tr><th>Work</th><th class="r">Your Cost</th><th class="r">Client Rate</th><th class="r">Profit</th><th class="r">%</th></tr></thead><tbody>${rows}
+      <tr class="mg-tot"><td>Total</td><td class="r">${money(totCost)}</td><td class="r">${money(totClient)}</td><td class="r ${tProf>=0?'pos':'neg'}">${money(tProf)}</td><td class="r ${tProf>=0?'pos':'neg'}">${tPct.toFixed(1)}%</td></tr>
+    </tbody></table></div>`;
+  mp.querySelectorAll(".mg-cost").forEach(el=>el.addEventListener("input",()=>{state.quote.items[+el.dataset.i].cost=parseFloat(el.value)||0;save();renderMargin();}));
+}
 function updateTotalsOnly(){
   const q=state.quote,t=totalsCalc();
   const sub=document.querySelector('#totals .tline:first-child span:last-child');if(sub)sub.textContent=money(t.sub);
@@ -2087,6 +2203,16 @@ document.getElementById("liAdd").addEventListener("click",()=>{
 });
 document.getElementById("cDateAD").addEventListener("change",e=>{state.quote.dateAD=e.target.value;const bs=bsFromAD(e.target.value);state.quote.dateBS=bs;const bsEl=document.getElementById("cDateBS");if(bsEl)bsEl.value=bs;if(!bs&&e.target.value)toast("BS चाहिं हातैले हाल्नुहोस् (range बाहिर)");save();});
 document.getElementById("cDateBS").addEventListener("input",e=>{state.quote.dateBS=e.target.value;save();});
+{const _bsBtn=document.getElementById("cDateBSbtn"),_bsIn=document.getElementById("cDateBS");
+ if(_bsBtn)_bsBtn.addEventListener("click",e=>{e.stopPropagation();const p=document.getElementById("npCalPop");if(p.classList.contains("open"))closeNepCal();else openNepCal();});
+ if(_bsIn)_bsIn.addEventListener("click",e=>{e.stopPropagation();openNepCal();});
+ document.getElementById("npcPM").addEventListener("click",e=>{e.stopPropagation();calStep(-1);});
+ document.getElementById("npcNM").addEventListener("click",e=>{e.stopPropagation();calStep(1);});
+ document.getElementById("npcPY").addEventListener("click",e=>{e.stopPropagation();calStepY(-1);});
+ document.getElementById("npcNY").addEventListener("click",e=>{e.stopPropagation();calStepY(1);});
+ document.getElementById("npcToday").addEventListener("click",e=>{e.stopPropagation();const t=new Date();pickNepDate(t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0"));});
+ document.getElementById("npCalPop").addEventListener("click",e=>e.stopPropagation());
+ document.addEventListener("click",()=>closeNepCal());}
 document.getElementById("cDatePrint").addEventListener("change",e=>{state.quote.datePrint=e.target.value;save();});
 document.getElementById("cDocType").addEventListener("change",e=>{state.quote.docType=e.target.value;save();});
 //// ===== smart terms & conditions templates =====
@@ -2535,12 +2661,14 @@ function renderProjects(){
     card.innerHTML=`<div class="pcard-h"><div class="pic">${esc((p.name||"?")[0].toUpperCase())}</div><div class="pmain"><div class="pn">${esc(p.name)} <span class="st-badge st-${st.toLowerCase()}">${st}</span></div><div class="pd">${esc(p.client||"—")} · ${items} items · ${photos}📷</div></div><div class="pamt">${total>0?money(total):""}</div></div>
       <div class="pcard-body">
         <div class="st-pick"><span>Status</span>${["Draft","Sent","Approved"].map(s=>`<button class="st-opt st-${s.toLowerCase()}" data-st="${s}" aria-pressed="${st===s}">${s}</button>`).join("")}</div>
+        <div class="mile-box"><div class="mile-row"><label>Quoted total</label><div class="mile-val">${total>0?money(total):"—"}</div></div><div class="mile-row"><label>Advance received</label><div class="mile-in"><span>${profile.currency}</span><input type="number" min="0" step="any" class="mile-adv" value="${p.advance||""}" placeholder="0"></div></div><div class="mile-row bal"><label>Balance due</label><div class="mile-val mile-bal">${money(Math.max(0,total-(+p.advance||0)))}</div></div></div>
         <div class="pcard-acts"><button class="load" data-a="load"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Load BOQ</button><button data-a="save"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2zM17 21v-8H7v8M7 3v5h8"/></svg>Save current</button><button class="del" data-a="del">✕</button></div>
         <div class="up-area" data-a="upload"><div class="ut"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg>Upload drawings / site photos</div><div class="us">JPG / PNG — saved to this project</div></div>
         <div class="photo-grid"></div>
       </div>`;
     card.querySelector(".pcard-h").addEventListener("click",()=>card.classList.toggle("open"));
     card.querySelectorAll(".st-opt").forEach(b=>b.addEventListener("click",e=>{e.stopPropagation();p.status=b.dataset.st;pmSave();renderProjects();}));
+    {const adv=card.querySelector(".mile-adv");if(adv){adv.addEventListener("click",e=>e.stopPropagation());adv.addEventListener("input",e=>{p.advance=parseFloat(e.target.value)||0;pmSave();const bal=card.querySelector(".mile-bal");if(bal)bal.textContent=money(Math.max(0,total-(+p.advance||0)));});}}
     card.querySelector('[data-a="load"]').addEventListener("click",e=>{e.stopPropagation();loadProject(p);});
     card.querySelector('[data-a="save"]').addEventListener("click",e=>{e.stopPropagation();p.boq=snapshotBOQ();p.updated=Date.now();setActive(p.id);pmSave();renderProjects();toast("Saved to "+p.name+" ✓");});
     card.querySelector('[data-a="del"]').addEventListener("click",e=>{e.stopPropagation();if(confirm("Delete project '"+p.name+"'?")){PROJECTS=PROJECTS.filter(x=>x.id!==p.id);if(activeProjectId===p.id)setActive(null);pmSave();renderProjects();}});
