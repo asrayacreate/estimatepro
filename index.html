@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>BuildPro ERP — Construction &amp; Engineering</title>
+<title>EstimatePro ERP — Construction &amp; Engineering</title>
 <!-- PWA -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#13213a">
-<meta name="description" content="BuildPro ERP — professional construction estimating, BOQ &amp; quotation system. Works offline.">
+<meta name="description" content="EstimatePro ERP — professional construction estimating, BOQ &amp; quotation system. Works offline.">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="BuildPro ERP">
+<meta name="apple-mobile-web-app-title" content="EstimatePro ERP">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -823,8 +823,8 @@
     <div class="sb-brand">
       <div class="sb-logo" id="sbLogo"></div>
       <div class="txt">
-        <h1 id="sbName">BuildPro ERP</h1>
-        <div class="sub" id="sbSub">BuildPro ERP</div>
+        <h1 id="sbName">EstimatePro ERP</h1>
+        <div class="sub" id="sbSub">EstimatePro ERP</div>
       </div>
       <button class="sb-close" id="sbClose" aria-label="Close menu">✕</button>
     </div>
@@ -920,7 +920,9 @@
         <div class="cfield"><label>Phone</label><input id="cPhone" placeholder="98········"></div>
         <div class="cfield"><label>Site address</label><input id="cSite" placeholder="ठेगाना"></div>
         <div class="cfield"><label>Project name</label><input id="cProject" placeholder="e.g. Mr. Ram Villa"></div>
-        <div class="cfield"><label>Quotation date</label><input id="cDate" placeholder="2083-02-27 / 24 Jun 2026"></div>
+        <div class="cfield"><label>English date (AD)</label><input type="date" id="cDateAD"></div>
+        <div class="cfield"><label>Nepali date (BS) — auto</label><input id="cDateBS" placeholder="२०ը३-०३-१२" inputmode="text"></div>
+        <div class="cfield full"><label>Show on print</label><select id="cDatePrint"><option value="both">Both (BS + AD)</option><option value="np">Nepali (BS) only</option><option value="en">English (AD) only</option></select></div>
         <div class="cfield full"><label>Document type</label><select id="cDocType"><option>Quotation</option><option>Project Proposal</option><option>Tax Invoice</option><option>FF&amp;E Schedule</option><option>Estimate</option></select></div>
         <button class="full" id="cSaveClient" style="border:1px solid var(--line-strong);background:var(--canvas);color:var(--ink);font-family:var(--mono);font-size:11px;font-weight:700;padding:9px;border-radius:8px;cursor:pointer">＋ Save client to address book</button>
       </div>
@@ -1051,7 +1053,7 @@
 <div class="lock" id="lock">
   <div class="lock-card" id="lockCard">
     <div class="lock-logo" id="lockLogo"></div>
-    <h2 id="lockName">BuildPro ERP</h2>
+    <h2 id="lockName">EstimatePro ERP</h2>
     <p>Enter PIN to unlock / PIN हाल्नुस्</p>
     <input id="lockInput" type="password" inputmode="numeric" maxlength="4" placeholder="••••">
     <button id="lockBtn">Unlock</button>
@@ -1063,8 +1065,8 @@
   <div class="lock-card exp-card">
     <div class="lock-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:30px;height:30px"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1-6.3-4.6L5.7 21l2.3-7.1-6-4.5h7.6z"/></svg></div>
     <h2>Trial Expired</h2>
-    <p id="expMsg">Your 7-day trial of BuildPro ERP has ended. Enter an Activation Key to unlock all features — forever.</p>
-    <input id="expKey" type="text" placeholder="BP-XXXX-XXXX" autocomplete="off" spellcheck="false">
+    <p id="expMsg">Your 7-day trial of EstimatePro ERP has ended. Enter an Activation Key to unlock all features — forever.</p>
+    <input id="expKey" type="text" placeholder="EP-XXXX-XXXX" autocomplete="off" spellcheck="false">
     <button id="expActivate">Activate Lifetime License</button>
     <div class="exp-note" id="expNote">Activation keys are provided after purchase.</div>
   </div>
@@ -1168,7 +1170,7 @@
 <div class="lock" id="onboard" style="display:none">
   <div class="lock-card onboard-card">
     <div class="ob-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:30px;height:30px"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></div>
-    <h2>BuildPro ERP मा स्वागत छ! 👋</h2>
+    <h2>EstimatePro ERP मा स्वागत छ! 👋</h2>
     <p class="ob-intro">इस्टिमेट र BOQ कोटेशन बनाउन यी ू सजिला स्टेप फलो गर्नुहोस्:</p>
     <div class="ob-steps">
       <div class="ob-step"><span class="obn">१</span><span class="obt">मेनुबाट क्याटेगरी छानेर नाप <b>(L×B×H)</b> हाल्नुहोस्।</span></div>
@@ -1179,6 +1181,12 @@
   </div>
 </div>
 
+<datalist id="roomList">
+  <option value="Living Room"></option><option value="Master Bedroom"></option><option value="Bedroom"></option><option value="Kids Bedroom"></option><option value="Guest Bedroom"></option><option value="Kitchen"></option><option value="Dining Room"></option><option value="Drawing Room"></option><option value="Bathroom"></option><option value="Master Bathroom"></option><option value="Toilet"></option><option value="Pooja Room"></option><option value="Study Room"></option><option value="Office Room"></option><option value="Store Room"></option><option value="Staircase"></option><option value="Lobby"></option><option value="Corridor / Passage"></option><option value="Balcony"></option><option value="Terrace"></option><option value="Entrance / Foyer"></option><option value="Reception"></option><option value="Common Area"></option><option value="Parking"></option><option value="Garden / Lawn"></option><option value="Ground Floor"></option><option value="First Floor"></option><option value="Second Floor"></option><option value="Whole House"></option>
+</datalist>
+<datalist id="finishList">
+  <option value="Laminate"></option><option value="Veneer"></option><option value="Walnut veneer, matte"></option><option value="Teak veneer"></option><option value="PU paint, matte"></option><option value="PU paint, glossy"></option><option value="Duco paint"></option><option value="Acrylic finish"></option><option value="Membrane finish"></option><option value="Plywood + Laminate"></option><option value="MDF + Laminate"></option><option value="HDF board"></option><option value="Marine plywood"></option><option value="Italian marble"></option><option value="Granite"></option><option value="Vitrified tile"></option><option value="Ceramic tile"></option><option value="Wooden flooring"></option><option value="Vinyl flooring"></option><option value="Glass"></option><option value="Toughened glass"></option><option value="Stainless steel"></option><option value="MS powder coated"></option><option value="Aluminium"></option><option value="UPVC"></option><option value="Gypsum board"></option><option value="POP finish"></option><option value="Texture paint"></option><option value="Wallpaper"></option><option value="Emulsion paint"></option><option value="Distemper"></option><option value="Fabric upholstery"></option><option value="Leatherite"></option><option value="Quartz"></option><option value="Corian"></option>
+</datalist>
 <div class="toast" id="toast"></div>
 <div id="printArea"></div>
 
@@ -1282,7 +1290,7 @@ function boqMat(r){
 
 //// ===== themes =====
 const THEMES={
-  prerak:{nm:"Prerak",accent:"#1a3a6e"},
+  prerak:{nm:"EstimatePro",accent:"#1a3a6e"},
   teal:{nm:"Teal",accent:"#0e7c86"},
   emerald:{nm:"Emerald",accent:"#1f7a4d"},
   plum:{nm:"Plum",accent:"#6d3b8e"},
@@ -1397,7 +1405,7 @@ function applyProfile(){
   const p=profile;
   document.getElementById("sbLogo").innerHTML=p.logoImg?`<img src="${p.logoImg}">`:(p.initials||"YC");
   document.getElementById("sbName").textContent=p.company.length>22?p.company.slice(0,22)+"…":p.company;
-  document.getElementById("sbSub").textContent=(p.address?p.address.split(",")[0]+" · ":"")+"BuildPro ERP";
+  document.getElementById("sbSub").textContent=(p.address?p.address.split(",")[0]+" · ":"")+"EstimatePro ERP";
 }
 
 //// ===== sidebar nav =====
@@ -1727,6 +1735,82 @@ function renderPiece(){
   document.getElementById("pcH").addEventListener("input",e=>{s[cfg.hk]=parseFloat(e.target.value)||0;save();renderPiece();renderResults();});
 }
 
+//// ===== Nepali date (Bikram Sambat) converter =====
+// Anchor: BS 2083-01-01 = AD 2026-04-14 (verified). Covers BS 2080–2090.
+const BS_ANCHOR_AD=Date.UTC(2026,3,14),BS_ANCHOR_Y=2083;
+const BS_MONTHS={
+  2080:[31,32,31,32,31,30,30,30,29,29,30,30],
+  2081:[31,31,32,32,31,30,30,30,29,30,30,30],
+  2082:[30,32,31,32,31,30,30,30,29,30,30,30],
+  2083:[31,31,32,31,31,30,30,30,29,30,30,30],
+  2084:[31,31,32,31,31,30,30,30,29,30,30,30],
+  2085:[31,32,31,32,30,31,30,30,29,30,30,30],
+  2086:[31,31,32,31,31,31,30,30,29,30,30,29],
+  2087:[31,31,32,31,31,31,30,30,29,30,30,30],
+  2088:[30,31,32,32,30,31,30,30,29,30,30,30],
+  2089:[30,31,32,32,31,30,30,30,29,30,30,30],
+  2090:[31,31,32,31,32,30,30,30,29,30,30,30]
+};
+const NEP_MONTHS=["वैशाख","जेठ","असार","साउन","भदौ","असोज","कार्तिक","मंसिर","पुस","माघ","फागुन","चैत"];
+function toNep(s){return String(s).replace(/[0-9]/g,d=>"०१२३४५६७८९"[+d]);}
+function adToBs(adStr){
+  if(!adStr)return null;const m=adStr.match(/^(\d{4})-(\d{2})-(\d{2})$/);if(!m)return null;
+  let days=Math.round((Date.UTC(+m[1],+m[2]-1,+m[3])-BS_ANCHOR_AD)/86400000);
+  let by=BS_ANCHOR_Y,bm=1,bd=1;
+  if(days>0){while(days>0){const ml=BS_MONTHS[by];if(!ml)return null;if(bd<ml[bm-1])bd++;else{bd=1;bm++;if(bm>12){bm=1;by++;}}days--;}}
+  else if(days<0){while(days<0){bd--;if(bd<1){bm--;if(bm<1){bm=12;by--;}const ml=BS_MONTHS[by];if(!ml)return null;bd=ml[bm-1];}days++;}}
+  return{y:by,m:bm,d:bd};
+}
+function bsFormat(bs){if(!bs)return"";return toNep(bs.d)+" "+NEP_MONTHS[bs.m-1]+" "+toNep(bs.y);}
+function bsFromAD(adStr){const bs=adToBs(adStr);return bs?bsFormat(bs):"";}
+// BS {y,m,d} -> AD 'YYYY-MM-DD'
+function bsToAd(by,bm,bd){
+  let days=0;
+  if(by>=BS_ANCHOR_Y){for(let y=BS_ANCHOR_Y;y<by;y++){const ml=BS_MONTHS[y];if(!ml)return null;days+=ml.reduce((a,b)=>a+b,0);}}
+  else{for(let y=by;y<BS_ANCHOR_Y;y++){const ml=BS_MONTHS[y];if(!ml)return null;days-=ml.reduce((a,b)=>a+b,0);}}
+  const ml=BS_MONTHS[by];if(!ml)return null;for(let m=1;m<bm;m++)days+=ml[m-1];days+=bd-1;
+  const dt=new Date(BS_ANCHOR_AD+days*86400000);
+  return dt.getUTCFullYear()+"-"+String(dt.getUTCMonth()+1).padStart(2,"0")+"-"+String(dt.getUTCDate()).padStart(2,"0");
+}
+// ===== popout Nepali (BS) calendar =====
+const NEP_WK=["आइत","सोम","मङ्गल","बुध","बिहि","शुक्र","शनि"];
+let calView=null; // {y,m}
+function openNepCal(){
+  const q=state.quote;let bs=q.dateAD?adToBs(q.dateAD):null;if(!bs){const t=new Date();bs=adToBs(t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0"));}
+  calView={y:bs?bs.y:2083,m:bs?bs.m:1};renderNepCal();document.getElementById("npCalPop").classList.add("open");
+}
+function closeNepCal(){const p=document.getElementById("npCalPop");if(p)p.classList.remove("open");}
+function renderNepCal(){
+  const pop=document.getElementById("npCalPop");if(!pop||!calView)return;
+  const{y,m}=calView,ml=BS_MONTHS[y];if(!ml){pop.querySelector(".npc-grid").innerHTML='<div class="npc-oor">यो वर्ष समर्थित छैन</div>';return;}
+  const dim=ml[m-1],firstAD=bsToAd(y,m,1),fw=new Date(firstAD+"T00:00:00Z").getUTCDay();
+  const today=new Date(),todayAD=today.getFullYear()+"-"+String(today.getMonth()+1).padStart(2,"0")+"-"+String(today.getDate()).padStart(2,"0");
+  const sel=state.quote.dateAD;
+  let cells="";for(let i=0;i<fw;i++)cells+='<div class="npc-cell empty"></div>';
+  for(let d=1;d<=dim;d++){const ad=bsToAd(y,m,d),adDay=ad?new Date(ad+"T00:00:00Z").getUTCDate():"";
+    const cls=["npc-cell"];if(ad===todayAD)cls.push("today");if(ad===sel)cls.push("sel");
+    cells+=`<button class="${cls.join(" ")}" data-ad="${ad}"><span class="bd">${toNep(d)}</span><span class="ad">${adDay}</span></button>`;}
+  pop.querySelector(".npc-title").innerHTML=`${NEP_MONTHS[m-1]} <b>${toNep(y)}</b>`;
+  pop.querySelector(".npc-grid").innerHTML=cells;
+  pop.querySelectorAll(".npc-cell[data-ad]").forEach(c=>c.addEventListener("click",()=>{pickNepDate(c.dataset.ad);}));
+}
+function calStep(dm){if(!calView)return;calView.m+=dm;if(calView.m>12){calView.m=1;calView.y++;}if(calView.m<1){calView.m=12;calView.y--;}renderNepCal();}
+function calStepY(dy){if(!calView)return;calView.y+=dy;renderNepCal();}
+function pickNepDate(ad){if(!ad)return;state.quote.dateAD=ad;state.quote.dateBS=bsFromAD(ad);save();
+  const adEl=document.getElementById("cDateAD");if(adEl)adEl.value=ad;const bsEl=document.getElementById("cDateBS");if(bsEl)bsEl.value=state.quote.dateBS;
+  closeNepCal();toast("मिति: "+state.quote.dateBS);}
+// the date string that prints, per user's Show-on-print choice
+function quoteDateStr(){
+  const q=state.quote,mode=q.datePrint||"both";
+  const ad=q.dateAD?new Date(q.dateAD+"T00:00:00").toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'}):"";
+  const bs=(q.dateBS||"").trim();
+  if(mode==="en")return ad||bs||new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'});
+  if(mode==="np")return bs||ad||new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'});
+  // both
+  if(bs&&ad)return bs+"  ("+ad+")";
+  return bs||ad||new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'});
+}
+
 //// ===== BOQ / quotation =====
 const overlay=document.getElementById("overlay"),boqWrap=document.getElementById("boqWrap"),totalsEl=document.getElementById("totals"),badge=document.getElementById("quoteBadge");
 function pushAnalysis(cat){
@@ -1891,7 +1975,10 @@ function renderQuote(){
   totalsEl.style.display="block";
   const tcb=document.getElementById("tcBlock");tcb.style.display="block";document.getElementById("tcArea").value=q.terms||"";refreshTermTplDropdown();
   initBuilder();
-  document.getElementById("cDate").value=q.date||"";
+  if(!q.dateAD&&!q.dateBS){const t=new Date();q.dateAD=t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0");q.dateBS=bsFromAD(q.dateAD);}
+  const adEl=document.getElementById("cDateAD");if(adEl)adEl.value=q.dateAD||"";
+  const bsEl=document.getElementById("cDateBS");if(bsEl)bsEl.value=q.dateBS||"";
+  const dpEl=document.getElementById("cDatePrint");if(dpEl)dpEl.value=q.datePrint||"both";
   const dt=document.getElementById("cDocType");if(dt){dt.value=q.docType||"Quotation";}
   const detailed=q.view==="detailed";
   let body="",sn=0;
@@ -1909,7 +1996,7 @@ function renderQuote(){
       `<td class="r amt">${money(it.amount)}</td>`+
       `<td class="acts"><button class="an-btn" data-an="${i}" title="${an?'Remove cost analysis':'Break into material + labour'}">${an?'▦':'⊕'}</button><button class="del" data-i="${i}" title="Remove">✕</button></td></tr>`;
     if(q.ffe){
-      body+=`<tr class="ffe-row"><td></td><td colspan="6"><div class="ffe-meta"><label>Room / Area<input class="ffecell" data-i="${i}" data-f="room" value="${esc(it.room||"")}" placeholder="e.g. Master Bedroom"></label><label>Material / Finish<input class="ffecell" data-i="${i}" data-f="finish" value="${esc(it.finish||"")}" placeholder="e.g. Walnut veneer, matte"></label></div></td></tr>`;
+      body+=`<tr class="ffe-row"><td></td><td colspan="6"><div class="ffe-meta"><label>Room / Area<input class="ffecell" list="roomList" data-i="${i}" data-f="room" value="${esc(it.room||"")}" placeholder="छान्नुहोस् / type…"></label><label>Material / Finish<input class="ffecell" list="finishList" data-i="${i}" data-f="finish" value="${esc(it.finish||"")}" placeholder="छान्नुहोस् / type…"></label></div></td></tr>`;
     }
     if(an){
       (it.subrows||[]).forEach((sr,si)=>{
@@ -1998,7 +2085,9 @@ document.getElementById("liAdd").addEventListener("click",()=>{
     d.value="";qn.value="1";rt.value="";liAmtUpdate();renderQuote();
   }
 });
-document.getElementById("cDate").addEventListener("input",e=>{state.quote.date=e.target.value;save();});
+document.getElementById("cDateAD").addEventListener("change",e=>{state.quote.dateAD=e.target.value;const bs=bsFromAD(e.target.value);state.quote.dateBS=bs;const bsEl=document.getElementById("cDateBS");if(bsEl)bsEl.value=bs;if(!bs&&e.target.value)toast("BS चाहिं हातैले हाल्नुहोस् (range बाहिर)");save();});
+document.getElementById("cDateBS").addEventListener("input",e=>{state.quote.dateBS=e.target.value;save();});
+document.getElementById("cDatePrint").addEventListener("change",e=>{state.quote.datePrint=e.target.value;save();});
 document.getElementById("cDocType").addEventListener("change",e=>{state.quote.docType=e.target.value;save();});
 //// ===== smart terms & conditions templates =====
 let TERM_TEMPLATES=[];
@@ -2032,7 +2121,7 @@ document.getElementById("xlsQuote").addEventListener("click",()=>{
   rows.push([profile.company]);rows.push([profile.address+"  ·  "+profile.phone+(profile.email?"  ·  "+profile.email:"")]);
   rows.push([(q.docType||"Quotation")+(q.project?" — "+q.project:"")]);
   if(q.client)rows.push(["Client:",q.client,q.phone||"",q.site||""]);
-  rows.push(["Date:",(q.date&&q.date.trim())?q.date.trim():new Date().toLocaleDateString('en-GB')]);
+  rows.push(["Date:",quoteDateStr()]);
   rows.push([]);
   rows.push(["S.N.","Description of Work","Qty","Unit","Rate ("+cur+")","Amount ("+cur+")"]);
   q.items.forEach((it,i)=>{
@@ -2061,7 +2150,7 @@ document.getElementById("addBtn").addEventListener("click",addToQuote);
 function boqCols(r){const m=boqMat(r),parts=m.qty.split(" "),unit=parts.pop();return{num:parts.join(" "),unit,rate:m.rate,amt:m.amt};}
 function buildQuoteHTML(){
   const q=state.quote,detailed=q.view==="detailed",t=totalsCalc(),p=profile,ffe=!!q.ffe;
-  const date=(q.date&&q.date.trim())?q.date.trim():new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'}),qid="Q-"+Date.now().toString().slice(-6);
+  const date=quoteDateStr(),qid="Q-"+Date.now().toString().slice(-6);
   let rows="",sn=0;
   q.items.forEach(it=>{sn++;
     const perUnit=it.analyzed?money(it.rate||0):(it.lineItem?money(it.rate):((!it.custom&&it.qty>0)?money(it.amount/it.qty):""));
@@ -2160,7 +2249,7 @@ function esc(s){return(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":
 //// ===== data management: export / import =====
 const DM_KEYS=["prerak-profile","prerak-est","prerak-projects","prerak-clients","prerak-active"];
 document.getElementById("dmExport").addEventListener("click",()=>{
-  const dump={_app:"BuildPro ERP",_version:15,_exported:new Date().toISOString(),data:{}};
+  const dump={_app:"EstimatePro ERP",_version:15,_exported:new Date().toISOString(),data:{}};
   DM_KEYS.forEach(k=>{const v=localStorage.getItem(k);if(v!=null)dump.data[k]=v;});
   const blob=new Blob([JSON.stringify(dump,null,2)],{type:"application/json"});
   const url=URL.createObjectURL(blob),a=document.createElement("a");
@@ -2189,7 +2278,7 @@ document.getElementById("dmFile").addEventListener("change",e=>{
 const pfOverlay=document.getElementById("pfOverlay");let pfSetup=false,pfLogoTmp="",pfSigTmp="",pfStampTmp="";
 function openProfile(setup){
   pfSetup=!!setup;const p=profile||DEFAULT_PROFILE;pfLogoTmp=p.logoImg||"";pfSigTmp=p.signImg||"";pfStampTmp=p.stampImg||"";
-  document.getElementById("pfTitle").textContent=setup?"Welcome to BuildPro ERP — set up your company":"Company Profile";
+  document.getElementById("pfTitle").textContent=setup?"Welcome to EstimatePro ERP — set up your company":"Company Profile";
   document.getElementById("pfSubtitle").textContent=setup?"First time: add your company name, logo & rates. You can change these anytime.":"Company details shown on every quotation & BOQ.";
   document.getElementById("pfCompany").value=p.company;document.getElementById("pfTagline").value=p.tagline;document.getElementById("pfAddress").value=p.address;document.getElementById("pfWebsite").value=p.website;document.getElementById("pfPhone").value=p.phone;document.getElementById("pfPhone2").value=p.phone2;document.getElementById("pfEmail").value=p.email||"";document.getElementById("pfInitials").value=p.initials;document.getElementById("pfPin").value=p.pin;
   const lic=p.license||DEFAULT_PROFILE.license;document.getElementById("licPlan").textContent=isPro()?"PRO (Lifetime)":"Trial";document.getElementById("licValid").textContent=isPro()?"Lifetime":(daysLeft()+" days left");document.getElementById("licKey").value=isPro()?LIC.key:"";
@@ -2360,10 +2449,33 @@ document.getElementById("prevFs").addEventListener("click",()=>prevOverlay.class
 document.getElementById("boqFs").addEventListener("click",()=>overlay.classList.toggle("fs"));
 document.getElementById("waQuote").addEventListener("click",()=>{
   const q=state.quote;if(!q.items.length){toast("BOQ is empty");return;}
-  const t=totalsCalc(),lines=q.items.map((it,i)=>`${i+1}. ${it.cat} — ${money(it.amount)}`).join("\n");
-  const msg=`*${profile.company}*\n${profile.address}\n\n*Quotation${q.project?" — "+q.project:""}*\n${q.client?"Client: "+q.client+"\n":""}\n${lines}\n\n*Grand Total: ${money(t.grand)}*\n${amountInWords(t.grand)}\n\n${profile.phone}${profile.phone2?", "+profile.phone2:""}`;
-  let ph=(q.phone||"").replace(/[^0-9]/g,"");if(ph.length===10)ph="977"+ph;
+  const t=totalsCalc();
+  // ask for client number if not saved
+  let ph=(q.phone||"").replace(/[^0-9]/g,"");
+  if(!ph){const inp=prompt("ग्राहकको WhatsApp नम्बर हाल्नुहोस् (१० अंक):","")||"";ph=inp.replace(/[^0-9]/g,"");if(ph){state.quote.phone=ph;save();const cp=document.getElementById("cPhone");if(cp)cp.value=ph;}}
+  if(ph.length===10)ph="977"+ph;
+  const cur=profile.currency;
+  const date=quoteDateStr();
+  const lines=q.items.map((it,i)=>`${i+1}. ${it.cat} — ${money(it.amount)}`).join("\n");
+  const msg=
+`*${profile.company}*
+_${profile.tagline||"Construction & Engineering"}_
+——————————————
+*🐋 QUOTATION*
+${q.project?`📌 Project: *${q.project}*\n`:""}${q.client?`👤 Client: ${q.client}\n`:""}📅 Date: ${date}
+
+*Works:*
+${lines}
+——————————————
+*💰 Grand Total: ${money(t.grand)}*
+_${amountInWords(t.grand)}_
+${amountInWordsNep(t.grand)}
+——————————————
+📞 ${profile.phone}${profile.phone2?", "+profile.phone2:""}${profile.email?`\n✉️ ${profile.email}`:""}
+
+_Thank you for the opportunity!_`;
   window.open(`https://wa.me/${ph}?text=`+encodeURIComponent(msg),"_blank");
+  toast("WhatsApp मा कोटेशन तयार ✓");
 });
 document.getElementById("projClose").addEventListener("click",()=>projOverlay.classList.remove("open"));
 document.getElementById("cliClose").addEventListener("click",()=>cliOverlay.classList.remove("open"));
@@ -2497,7 +2609,7 @@ function applyTemplate(key){
 
 //// ===== offline licensing (7-day trial + lifetime keys) =====
 const TRIAL_DAYS=7;
-const VALID_KEYS=["BP-PRO-8899","BP-LIFETIME-1122","BP-ELITE-4455","BP-BUILD-7733","BP-MASTER-9001"];
+const VALID_KEYS=["EP-PRO-8899","EP-LIFETIME-1122","EP-ELITE-4455","EP-BUILD-7733","EP-MASTER-9001","BP-PRO-8899","BP-LIFETIME-1122","BP-ELITE-4455","BP-BUILD-7733","BP-MASTER-9001"];
 const LIC_KEY="buildpro-license";
 function licLoad(){let l;try{l=JSON.parse(localStorage.getItem(LIC_KEY));}catch(e){}
   if(!l||!l.installed){l={installed:Date.now(),pro:false,key:""};localStorage.setItem(LIC_KEY,JSON.stringify(l));}
