@@ -998,6 +998,7 @@
   .dash-metrics,.home-stats{grid-template-columns:repeat(4,minmax(0,1fr))}
   @media(max-width:760px){.dash-metrics,.home-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
   .metric .mv{overflow:hidden;text-overflow:ellipsis}
+  #helpOverlay ol li > span:first-child::before{content:counter(step)}
 
   /* ============================================================
      ✦ LOGIN / WELCOME GATE
@@ -1095,6 +1096,7 @@
       <div class="fbtns">
         <button class="fbtn" id="profileBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Profile</button>
         <button class="fbtn" id="lockBtnTop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Lock</button>
+        <button class="fbtn" id="helpBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Help</button>
       </div>
     </div>
   </aside>
@@ -1311,6 +1313,10 @@
           <input type="file" id="dmFile" accept="application/json,.json" style="display:none">
         </div>
         <div class="dm-note">Backs up projects, clients, rates, profile &amp; estimates to a <b>.json</b> file. Import replaces all current data — keep a backup first.</div>
+        <div class="dm-row" style="margin-top:10px">
+          <button id="dmDemo" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.5 2.5M16.5 16.5 19 19M19 5l-2.5 2.5M7.5 16.5 5 19"/></svg>Load sample data</button>
+        </div>
+        <div class="dm-note">Adds example clients &amp; projects so you can explore the app. You can delete them anytime.</div>
       </div>
       <div class="pf-section">
         <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1-6.3-4.6L5.7 21l2.3-7.1-6-4.5h7.6z"/></svg> Subscription &amp; License</h3>
@@ -1322,7 +1328,7 @@
           <div class="vendor-contact">
             <a class="vc-wa" href="https://wa.me/9779801069733?text=Hi%20Asraya%20Create%2C%20I%20want%20to%20buy%2Factivate%20EstimatePro%20ERP%20license." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.5-5.6c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6 0-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>WhatsApp</a>
             <a class="vc-call" href="tel:9801069733"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.5-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg>Call</a>
-            <a class="vc-mail" href="/cdn-cgi/l/email-protection#46273534273f2725342327322368272506212b272f2a6825292b793533242c2325327b0335322f2b2732231634296374760314166374760a2f2523283523"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 7-10 6L2 7"/></svg>Email</a>
+            <a class="vc-mail" href="/cdn-cgi/l/email-protection#4c2d3f3e2d352d2f3e292d3829622d2f0c2b212d2520622f2321733f392e26292f3871093f3825212d38291c3e23697e7c091e1c697e7c00252f29223f29"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 7-10 6L2 7"/></svg>Email</a>
           </div>
         </div>
       </div>
@@ -1359,7 +1365,7 @@
     <div class="vendor-contact">
       <a class="vc-wa" href="https://wa.me/9779801069733?text=Hi%20Asraya%20Create%2C%20my%20EstimatePro%20ERP%20trial%20ended.%20I%20want%20a%20license." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.5-5.6c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6 0-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>WhatsApp</a>
       <a class="vc-call" href="tel:9801069733"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.5-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg>Call</a>
-      <a class="vc-mail" href="/cdn-cgi/l/email-protection#4c2d3f3e2d352d2f3e292d3829622d2f0c2b212d2520622f2321733f392e26292f3871093f3825212d38291c3e23697e7c091e1c697e7c00252f29223f29"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 7-10 6L2 7"/></svg>Email</a>
+      <a class="vc-mail" href="/cdn-cgi/l/email-protection#94f5e7e6f5edf5f7e6f1f5e0f1baf5f7d4f3f9f5fdf8baf7fbf9abe7e1f6fef1f7e0a9d1e7e0fdf9f5e0f1c4e6fbb1a6a4d1c6c4b1a6a4d8fdf7f1fae7f1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 7-10 6L2 7"/></svg>Email</a>
     </div>
   </div>
 </div>
@@ -1377,7 +1383,7 @@
         <li><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 5a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6"/></svg></span>Clients &amp; Projects CRM</li>
         <li><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17l9-9"/></svg></span>Works fully offline on any device</li>
       </ul>
-      <div class="lg-by">Powered by <b>Asraya Create</b><br><a href="https://wa.me/9779801069733?text=Hi%20Asraya%20Create%2C%20I%20use%20EstimatePro%20ERP." target="_blank" rel="noopener">WhatsApp 9801069733</a> · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8aebf9f8ebf3ebe9f8efebfeefa4ebe9caede7ebe3e6a4e9e5e7">[email&#160;protected]</a></div>
+      <div class="lg-by">Powered by <b>Asraya Create</b><br><a href="https://wa.me/9779801069733?text=Hi%20Asraya%20Create%2C%20I%20use%20EstimatePro%20ERP." target="_blank" rel="noopener">WhatsApp 9801069733</a> · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="36574544574f5755445357425318575576515b575f5a1855595b">[email&#160;protected]</a></div>
     </div>
     <div class="lg-form">
       <h2 id="lgTitle">Welcome 👋</h2>
@@ -1387,6 +1393,35 @@
       <button class="lg-enter" id="lgEnter"><span id="lgEnterTxt">Create &amp; Enter</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       <button type="button" class="lg-alt" id="lgForgot" style="display:none">Forgot PIN?</button>
       <div class="lg-note" id="lgNote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Stored privately on this device — no account needed.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Help / Quick Guide ============ -->
+<div class="overlay" id="helpOverlay">
+  <div class="drawer" style="max-width:560px">
+    <div class="modal-head" style="display:flex;align-items:center;gap:12px;padding:20px 24px;border-bottom:1px solid var(--line)">
+      <span style="width:38px;height:38px;border-radius:10px;background:#13213a;display:flex;align-items:center;justify-content:center;flex:none;padding:4px"><svg viewBox="0 0 120 120" style="width:100%;height:100%"><use href="#ep-emblem"></use></svg></span>
+      <div style="flex:1"><h2 style="margin:0;font-size:18px;color:var(--ink)">Quick Guide</h2><div style="font-size:12px;color:var(--ink-soft)">How to use EstimatePro ERP</div></div>
+      <button class="dclose" id="helpClose" aria-label="Close" style="border:none;background:transparent;font-size:24px;color:var(--ink-soft);cursor:pointer;line-height:1">×</button>
+    </div>
+    <div style="padding:8px 24px 24px;overflow-y:auto">
+      <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;counter-reset:step">
+        <li style="display:flex;gap:13px"><span style="counter-increment:step;flex:none;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center"></span><div><b style="color:var(--ink)">Set up your company</b><div style="font-size:12.5px;color:var(--ink-soft);line-height:1.55">Open <b>Profile</b> → add company name, logo, address, phone &amp; signature. These print on every quotation.</div></div></li>
+        <li style="display:flex;gap:13px"><span style="counter-increment:step;flex:none;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center"></span><div><b style="color:var(--ink)">Check your rates</b><div style="font-size:12.5px;color:var(--ink-soft);line-height:1.55">Open <b>Master Rates</b> and set material &amp; labour rates for your area. Every estimate uses these — set once.</div></div></li>
+        <li style="display:flex;gap:13px"><span style="counter-increment:step;flex:none;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center"></span><div><b style="color:var(--ink)">Build an estimate</b><div style="font-size:12.5px;color:var(--ink-soft);line-height:1.55">Pick a work category (RCC, Brick, Plaster…), enter dimensions — quantities &amp; material costs calculate instantly. Add items to the BOQ.</div></div></li>
+        <li style="display:flex;gap:13px"><span style="counter-increment:step;flex:none;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center"></span><div><b style="color:var(--ink)">Make a quotation</b><div style="font-size:12.5px;color:var(--ink-soft);line-height:1.55">Open <b>BOQ / Quotation</b>, add client details, apply discount/VAT, then <b>Print / PDF</b> or share on WhatsApp.</div></div></li>
+        <li style="display:flex;gap:13px"><span style="counter-increment:step;flex:none;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center"></span><div><b style="color:var(--ink)">Save projects &amp; back up</b><div style="font-size:12.5px;color:var(--ink-soft);line-height:1.55">Save each estimate as a <b>Project</b> to track clients &amp; advances. Regularly <b>Export</b> a backup (Profile → Data) to keep your data safe.</div></div></li>
+      </ol>
+      <div style="margin-top:20px;padding:16px;background:var(--canvas);border:1px solid var(--line);border-radius:12px">
+        <div style="font-weight:700;color:var(--ink);font-size:13px;margin-bottom:4px">Need help or a license?</div>
+        <div style="font-size:12px;color:var(--ink-soft);margin-bottom:10px">Support by Asraya Create — we usually reply within a day.</div>
+        <div class="vendor-contact" style="margin-top:0">
+          <a class="vc-wa" href="https://wa.me/9779801069733?text=Hi%20Asraya%20Create%2C%20I%20need%20help%20with%20EstimatePro%20ERP." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.5-5.6c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6 0-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>WhatsApp</a>
+          <a class="vc-call" href="tel:9801069733"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.5-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg>Call</a>
+          <a class="vc-mail" href="/cdn-cgi/l/email-protection#8aebf9f8ebf3ebe9f8efebfeefa4ebe9caede7ebe3e6a4e9e5e7b5f9ffe8e0efe9feb7cff9fee3e7ebfeefdaf8e5afb8bacfd8daafb8bac2efe6fa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 7-10 6L2 7"/></svg>Email</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -2664,9 +2699,39 @@ document.getElementById("dmExport").addEventListener("click",()=>{
   const url=URL.createObjectURL(blob),a=document.createElement("a");
   a.href=url;a.download="prerak-backup-"+new Date().toISOString().slice(0,10)+".json";
   document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+  try{localStorage.setItem("ep-lastbackup",Date.now());}catch(e){}
   toast("Backup exported ✓");
 });
 document.getElementById("dmImport").addEventListener("click",()=>document.getElementById("dmFile").click());
+// ── one-click sample data (safe: clients + projects, BOQ engine untouched) ──
+function loadDemoData(){
+  const now=Date.now(),D=86400000;
+  const demoClients=[
+    {name:"Ramesh Shrestha",company:"Shrestha Builders",phone:"9841000111",email:"ramesh@example.com",site:"Baluwatar, Kathmandu",notes:"Repeat client — 2 projects"},
+    {name:"Sita Gurung",company:"",phone:"9802233445",email:"",site:"Lakeside, Pokhara",notes:"Residential bungalow"},
+    {name:"Bikash Tamang",company:"Himalayan Infra Pvt. Ltd.",phone:"9851777888",email:"bikash@himalayan.com",site:"Itahari, Sunsari",notes:"Commercial — fast track"},
+    {name:"Anjana Karki",company:"",phone:"9813344556",email:"",site:"Bhaktapur",notes:"Renovation"},
+  ];
+  const demoProjects=[
+    {id:uid(),name:"Shrestha 3-Storey Residence",client:"Ramesh Shrestha",phone:"9841000111",site:"Baluwatar, Kathmandu",status:"Ongoing",advance:1500000,created:now-22*D,updated:now-2*D,boq:{items:[],discount:0,vat:true,view:"client"},photos:[]},
+    {id:uid(),name:"Gurung Lakeside Bungalow",client:"Sita Gurung",phone:"9802233445",site:"Lakeside, Pokhara",status:"Draft",advance:0,created:now-9*D,updated:now-9*D,boq:{items:[],discount:5,vat:true,view:"client"},photos:[]},
+    {id:uid(),name:"Himalayan Warehouse Block-B",client:"Bikash Tamang",phone:"9851777888",site:"Itahari, Sunsari",status:"Ongoing",advance:4200000,created:now-40*D,updated:now-5*D,boq:{items:[],discount:0,vat:true,view:"client"},photos:[]},
+    {id:uid(),name:"Karki Home Renovation",client:"Anjana Karki",phone:"9813344556",site:"Bhaktapur",status:"Completed",advance:850000,created:now-70*D,updated:now-30*D,boq:{items:[],discount:0,vat:false,view:"client"},photos:[]},
+  ];
+  const merge=confirm("Load sample clients & projects?\n\nOK = add to your current data\nCancel = stop");
+  if(!merge)return;
+  demoClients.forEach(c=>{if(!CLIENTS.some(x=>x.name.toLowerCase()===c.name.toLowerCase()))CLIENTS.push(c);});
+  demoProjects.forEach(p=>PROJECTS.push(p));
+  clSaveLS();pmSave();
+  renderProjects&&renderProjects();renderClients&&renderClients();renderHome&&renderHome();
+  toast("Sample data loaded ✓");
+}
+{const d=document.getElementById("dmDemo");if(d)d.addEventListener("click",loadDemoData);}
+// ── Help / quick guide ──
+{const hb=document.getElementById("helpBtn"),ho=document.getElementById("helpOverlay"),hc=document.getElementById("helpClose");
+ if(hb&&ho){hb.addEventListener("click",()=>ho.classList.add("open"));
+   if(hc)hc.addEventListener("click",()=>ho.classList.remove("open"));
+   ho.addEventListener("click",e=>{if(e.target===ho)ho.classList.remove("open");});}}
 document.getElementById("dmFile").addEventListener("change",e=>{
   const f=e.target.files[0];e.target.value="";if(!f)return;
   const rd=new FileReader();
@@ -2689,7 +2754,8 @@ function openProfile(setup){
   pfSetup=!!setup;const p=profile||DEFAULT_PROFILE;pfLogoTmp=p.logoImg||"";pfSigTmp=p.signImg||"";pfStampTmp=p.stampImg||"";
   document.getElementById("pfTitle").textContent=setup?"Welcome to EstimatePro ERP — set up your company":"Company Profile";
   document.getElementById("pfSubtitle").textContent=setup?"First time: add your company name, logo & rates. You can change these anytime.":"Company details shown on every quotation & BOQ.";
-  document.getElementById("pfCompany").value=p.company;document.getElementById("pfTagline").value=p.tagline;document.getElementById("pfAddress").value=p.address;document.getElementById("pfWebsite").value=p.website;document.getElementById("pfPhone").value=p.phone;document.getElementById("pfPhone2").value=p.phone2;document.getElementById("pfEmail").value=p.email||"";document.getElementById("pfInitials").value=p.initials;document.getElementById("pfPin").value=p.pin;
+  document.getElementById("pfCompany").value=p.company;document.getElementById("pfTagline").value=p.tagline;document.getElementById("pfAddress").value=p.address;document.getElementById("pfWebsite").value=p.website;document.getElementById("pfPhone").value=p.phone;document.getElementById("pfPhone2").value=p.phone2;document.getElementById("pfEmail").value=p.email||"";document.getElementById("pfInitials").value=p.initials;document.getElementById("pfPin").value="";
+  {const pp=document.getElementById("pfPin");if(pp)pp.placeholder=p.pin?"•••• (PIN set — leave blank to keep)":"••••";}
   const lic=p.license||DEFAULT_PROFILE.license;document.getElementById("licPlan").textContent=isPro()?"PRO (Lifetime)":"Trial";document.getElementById("licValid").textContent=isPro()?"Lifetime":(daysLeft()+" days left");document.getElementById("licKey").value=isPro()?LIC.key:"";
   document.querySelectorAll("#pfCurrency button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.val===p.currency));
   const pc=document.getElementById("pfContract");if(pc)pc.value=(p.contract!=null?p.contract:DEFAULT_CONTRACT);
@@ -2730,7 +2796,7 @@ document.getElementById("pfSave").addEventListener("click",()=>{
     email:document.getElementById("pfEmail").value.trim(),
     initials:(document.getElementById("pfInitials").value.trim()||"PRK").toUpperCase(),
     logoImg:pfLogoTmp,signImg:pfSigTmp,stampImg:pfStampTmp,currency:cur?cur.dataset.val:"रू",
-    pin:document.getElementById("pfPin").value.replace(/\D/g,"").slice(0,4),
+    pin:(function(){var v=document.getElementById("pfPin").value.replace(/\D/g,"");if(!v)return (profile&&profile.pin)||"";return _pinSet(v);})(),
     contract:document.getElementById("pfContract")?document.getElementById("pfContract").value:(profile&&profile.contract),
   });
   if(!profile.rates)profile.rates=JSON.parse(JSON.stringify(DEFAULT_PROFILE.rates));
@@ -2754,7 +2820,7 @@ function showLock(){
 function doUnlock(){lock.classList.remove("show");lockInput.value="";sessionStorage.setItem("prerak-unlk","1");}
 function tryUnlock(){
   if(!profile.pin){doUnlock();return;}
-  if(lockInput.value===profile.pin)doUnlock();
+  if(_pinMatch(lockInput.value,profile.pin)){if(profile.pin.indexOf("h1:")!==0){profile.pin=_pinSet(lockInput.value);saveProfile();}doUnlock();}
   else{const c=document.getElementById("lockCard");c.classList.remove("shake");void c.offsetWidth;c.classList.add("shake");lockInput.value="";}
 }
 document.getElementById("lockBtn").addEventListener("click",tryUnlock);
@@ -3090,6 +3156,10 @@ function _validKey(raw){
 }
 // stable per-device fingerprint
 function _deviceId(){let d;try{d=localStorage.getItem("ep-dev");}catch(e){}if(!d){d=_h53(navigator.userAgent+"|"+screen.width+"x"+screen.height+"|"+Date.now()+"|"+Math.random());try{localStorage.setItem("ep-dev",d);}catch(e){}}return d;}
+// ── PIN: salted hash, never stored in plaintext ──
+function _pinHash(p){return "h1:"+_h53((p||"")+_SECRET+"::pin");}
+function _pinSet(raw){const d=(raw||"").replace(/\D/g,"").slice(0,4);return d.length===4?_pinHash(d):"";}
+function _pinMatch(input,stored){const d=(input||"").replace(/\D/g,"");if(!stored)return true;if(stored.indexOf("h1:")===0)return _pinHash(d)===stored;return d===stored;/*legacy plaintext*/}
 const LIC_KEY="buildpro-license";
 function licLoad(){let l;try{l=JSON.parse(localStorage.getItem(LIC_KEY));}catch(e){}
   if(!l||!l.installed){l={installed:Date.now(),pro:false,key:""};localStorage.setItem(LIC_KEY,JSON.stringify(l));}
@@ -3181,13 +3251,13 @@ function handleGate(){
     if(!name){nEl.classList.add("err");nEl.focus();toast("Please enter your name");return;}
     if(pin&&pin.length<4){pinErr();shakeGate();toast("PIN must be 4 digits");return;}
     try{localStorage.setItem(LOGIN_KEY,JSON.stringify({name:name,at:Date.now()}));}catch(e){}
-    if(pin.length===4){profile.pin=pin;saveProfile();}
+    if(pin.length===4){profile.pin=_pinSet(pin);saveProfile();}
     finishGate("Welcome, "+name.split(" ")[0]+" ✓");
   } else if(__gateMode==="unlock"){
-    if(pin===profile.pin)finishGate("Unlocked ✓");
+    if(_pinMatch(pin,profile.pin)){if(profile.pin.indexOf("h1:")!==0){profile.pin=_pinSet(pin);saveProfile();}finishGate("Unlocked ✓");}
     else{pinErr();shakeGate();}
   } else {
-    if(pin){if(pin.length<4){pinErr();shakeGate();toast("PIN must be 4 digits");return;}profile.pin=pin;saveProfile();finishGate("PIN set ✓");}
+    if(pin){if(pin.length<4){pinErr();shakeGate();toast("PIN must be 4 digits");return;}profile.pin=_pinSet(pin);saveProfile();finishGate("PIN set ✓");}
     else finishGate("");
   }
 }
@@ -3212,6 +3282,20 @@ function afterLogin(){
   if(__freshProfile){openProfile(true);}
   enforceLicense();
   maybeShowOnboarding();
+  backupReminder();
+}
+// gentle, non-intrusive backup nudge — protects buyers from data loss
+function backupReminder(){
+  try{
+    const hasData=(PROJECTS&&PROJECTS.length)||(CLIENTS&&CLIENTS.length);
+    if(!hasData)return;
+    const last=+localStorage.getItem("ep-lastbackup")||0;
+    const since=last||(LIC&&LIC.installed)||Date.now();
+    const days=Math.floor((Date.now()-since)/86400000);
+    if(days>=7){
+      setTimeout(()=>toast("💾 Tip: back up your data — Profile → Backup & Restore ("+days+" days since last backup)"),1600);
+    }
+  }catch(e){}
 }
 function maybeShowOnboarding(){
   if(localStorage.getItem("buildpro-onboarded")==="1")return;
