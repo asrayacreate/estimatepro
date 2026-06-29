@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="EstimatePro ERP">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2313213a'/%3E%3Crect x='16' y='34' width='8' height='14' rx='1.5' fill='%23ffffff'/%3E%3Crect x='40' y='30' width='8' height='18' rx='1.5' fill='%23ffffff'/%3E%3Crect x='29' y='23' width='6' height='25' rx='1.5' fill='%23e0992a'/%3E%3Cpath d='M32 11 L22 28 L28 28 L28 32 L36 32 L36 28 L42 28 Z' fill='%23e0992a'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -354,18 +354,28 @@
   .modal-foot .ghost{background:var(--canvas);color:var(--ink-soft)}
 
   /* lock screen — smooth */
-  .lock{position:fixed;inset:0;z-index:80;background:linear-gradient(160deg,#13213a,#1a3a6e);display:flex;align-items:center;justify-content:center;color:#fff;opacity:0;pointer-events:none;transition:opacity .4s ease}
+  .lock{position:fixed;inset:0;z-index:80;background:radial-gradient(circle at 20% 15%,#1c3a6b 0%,#13213a 45%,#0a1124 100%);display:flex;align-items:center;justify-content:center;color:#fff;opacity:0;pointer-events:none;transition:opacity .4s ease;overflow:hidden}
+  .lock::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(224,153,42,.32),transparent 62%);top:-160px;right:-150px;filter:blur(38px);animation:lockBlob 13s ease-in-out infinite}
+  .lock::after{content:"";position:absolute;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(45,128,224,.34),transparent 62%);bottom:-200px;left:-170px;filter:blur(42px);animation:lockBlob 16s ease-in-out infinite reverse}
+  @keyframes lockBlob{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,40px) scale(1.12)}}
   .lock.show{opacity:1;pointer-events:auto}
-  .lock-card{text-align:center;width:280px;transform:translateY(14px) scale(.97);opacity:.6;transition:.45s cubic-bezier(.22,.7,.3,1)}
+  .lock-card{position:relative;text-align:center;width:300px;padding:34px 28px 30px;border-radius:24px;background:rgba(255,255,255,.07);backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);border:1px solid rgba(255,255,255,.16);box-shadow:0 24px 70px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.18);transform:translateY(14px) scale(.97);opacity:.6;transition:.45s cubic-bezier(.22,.7,.3,1)}
+  /* electric animated border */
+  .lock-card::before{content:"";position:absolute;inset:-2px;border-radius:26px;padding:2px;background:conic-gradient(from 0deg,transparent 0deg,#e0992a 40deg,#2d80e0 110deg,transparent 170deg,transparent 200deg,#2d80e0 250deg,#e0992a 320deg,transparent 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;animation:elecSpin 4s linear infinite;opacity:.9;pointer-events:none}
+  @keyframes elecSpin{to{transform:rotate(360deg)}}
+  @media(prefers-reduced-motion:reduce){.lock-card::before{animation:none}.lock::before,.lock::after{animation:none}}
   .lock.show .lock-card{transform:none;opacity:1}
-  .lock-logo{width:66px;height:66px;border-radius:17px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-family:var(--mono);font-weight:700;font-size:23px;overflow:hidden;border:1px solid rgba(255,255,255,.18)}
+  .lock-logo{width:72px;height:72px;border-radius:19px;background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-family:var(--mono);font-weight:700;font-size:25px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.3)}0;font-size:23px;overflow:hidden;border:1px solid rgba(255,255,255,.18)}
   .lock-logo img{width:100%;height:100%;object-fit:cover}
   .lock-card h2{font-size:18px;font-weight:700}
   .lock-card p{font-size:12px;opacity:.7;margin-top:4px;margin-bottom:20px}
-  .lock-card input{width:100%;text-align:center;letter-spacing:.5em;font-size:22px;font-family:var(--mono);padding:13px;border-radius:11px;border:2px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;outline:none}
+  .lock-card input{width:100%;text-align:center;letter-spacing:.5em;font-size:22px;font-family:var(--mono);padding:14px;border-radius:13px;border:1.5px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;outline:none;transition:.18s}
+  .lock-card input:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(224,153,42,.18),0 0 18px rgba(224,153,42,.25)}5,255,.08);color:#fff;outline:none}
   .lock-card input:focus{border-color:var(--gold)}
   .lock-card input::placeholder{letter-spacing:.2em;opacity:.4}
-  .lock-card button{width:100%;margin-top:12px;border:none;background:var(--gold);color:#3a2300;font-weight:700;font-size:14px;padding:13px;border-radius:11px;cursor:pointer;font-family:inherit}
+  .lock-card button{width:100%;margin-top:14px;border:none;background:linear-gradient(135deg,var(--gold),#c8841f);color:#2a1c00;font-weight:700;font-size:15px;padding:14px;border-radius:13px;cursor:pointer;font-family:inherit;box-shadow:0 8px 22px rgba(224,153,42,.35);transition:.16s}
+  .lock-card button:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(224,153,42,.45)}
+  .lock-card button:active{transform:translateY(0)}
   .exp-card{width:320px}
   .exp-card input{letter-spacing:.15em;font-size:17px;text-transform:uppercase}
   .exp-card input::placeholder{text-transform:none}
@@ -704,6 +714,32 @@
   .mat-row .ml{flex:1;font-size:13px;font-weight:600;color:var(--ink)}
   /* service library manager */
   .seg-tabs{display:flex;gap:6px;background:var(--canvas);border:1px solid var(--line);border-radius:11px;padding:4px;margin-bottom:16px}
+  /* calculator + converter */
+  .calc-today{background:linear-gradient(135deg,var(--navy),var(--navy-d));color:#fff;border-radius:13px;padding:14px 16px;margin-bottom:16px}
+  .calc-today .ct-np{font-size:18px;font-weight:700}
+  .calc-today .ct-ad{font-size:12px;opacity:.82;margin-top:3px}
+  .calc-disp{background:var(--ink);color:#fff;border-radius:13px;padding:18px;text-align:right;margin-bottom:12px;min-height:84px;display:flex;flex-direction:column;justify-content:flex-end}
+  .calc-expr{font-family:var(--mono);font-size:13px;opacity:.6;min-height:18px;word-break:break-all}
+  .calc-out{font-family:var(--mono);font-size:32px;font-weight:700;word-break:break-all;line-height:1.1}
+  .calc-pad{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .ck{border:none;background:var(--paper);border:1px solid var(--line);color:var(--ink);font-family:var(--mono);font-size:19px;font-weight:600;padding:16px 0;border-radius:12px;cursor:pointer;transition:.1s}
+  .ck:hover{border-color:var(--navy)}
+  .ck:active{transform:scale(.96)}
+  .ck.op{background:var(--canvas);color:var(--navy);font-weight:700}
+  .ck.clr{color:#c0392b}
+  .ck.eq{background:var(--navy);color:#fff;grid-column:span 1}
+  .ck.zero{grid-column:span 1}
+  .conv-type{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+  .conv-tbtn{border:1px solid var(--line-strong);background:var(--paper);color:var(--ink-soft);font-family:inherit;font-size:12px;font-weight:700;padding:8px 13px;border-radius:8px;cursor:pointer}
+  .conv-tbtn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .conv-io{display:flex;align-items:center;gap:11px}
+  .conv-field{flex:1;display:flex;flex-direction:column;gap:7px}
+  .conv-field input{border:1.5px solid var(--line-strong);background:var(--canvas);border-radius:10px;padding:13px;font-family:var(--mono);font-size:18px;font-weight:700;text-align:right;color:var(--ink);outline:none}
+  .conv-field input:focus{border-color:var(--navy)}
+  .conv-field input[readonly]{background:color-mix(in srgb,var(--navy) 8%,#fff);color:var(--navy)}
+  .conv-field select{border:1px solid var(--line-strong);background:var(--paper);border-radius:9px;padding:9px;font-family:inherit;font-size:12px;color:var(--ink);outline:none}
+  .conv-eq{font-size:20px;font-weight:700;color:var(--ink-soft);padding-top:24px}
+  .conv-note{margin-top:14px;background:var(--canvas);border:1px solid var(--line);border-radius:10px;padding:12px;font-family:var(--mono);font-size:13px;color:var(--navy);font-weight:600;text-align:center}
   .seg-tabs button{flex:1;border:none;background:transparent;color:var(--ink-soft);font-family:inherit;font-weight:700;font-size:12.5px;padding:9px;border-radius:8px;cursor:pointer;transition:.14s}
   .seg-tabs button.active{background:var(--navy);color:#fff}
   .svc-lib-bar{display:flex;gap:9px;align-items:center;margin-bottom:12px}
@@ -874,9 +910,173 @@
   .doc-foot{margin-top:22px;border-top:1px solid #e2e6ee;padding-top:12px;font-size:10.5px;color:#5f6b80;display:flex;justify-content:space-between;gap:20px}
   .doc-foot .sign{text-align:center;width:200px}
   .doc-foot .sign .ln{border-top:1px solid #8a93a6;margin-top:34px;padding-top:5px}
+
+  /* ============================================================
+     ✦ PREMIUM POLISH LAYER — screen UI only (print doc untouched)
+     ============================================================ */
+  /* — refined elevation system — */
+  .card{box-shadow:0 1px 2px rgba(19,33,58,.04),0 6px 22px rgba(19,33,58,.06);transition:box-shadow .22s ease,transform .22s ease}
+  .ws-col > .card:hover{box-shadow:0 2px 4px rgba(19,33,58,.05),0 14px 36px rgba(19,33,58,.10)}
+  .dash-panel{transition:box-shadow .22s ease,transform .22s ease}
+  .dash-panel:hover{box-shadow:0 10px 30px rgba(19,33,58,.08)}
+
+  /* — hero: layered depth + soft light + gold seam — */
+  .home-hero{position:relative;overflow:hidden;box-shadow:0 14px 40px rgba(19,33,58,.22),inset 0 1px 0 rgba(255,255,255,.08)}
+  .home-hero::before{content:"";position:absolute;top:-60%;right:-10%;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(224,153,42,.22),transparent 68%);pointer-events:none}
+  .home-hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--gold),transparent 72%);opacity:.9}
+  .home-hero > *{position:relative;z-index:1}
+  .home-hero .hh-logo{box-shadow:0 6px 18px rgba(0,0,0,.22)}
+
+  /* — metric stat cards: lift + crisper icon chip — */
+  .metric{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;box-shadow:0 1px 2px rgba(19,33,58,.04)}
+  .metric:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--mc,var(--navy)) 42%,var(--line));box-shadow:0 10px 26px rgba(19,33,58,.10)}
+  .metric .mi{box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--mc,var(--navy)) 18%,transparent)}
+
+  /* — friendlier empty states with an icon — */
+  .dash-empty{display:flex;flex-direction:column;align-items:center;gap:9px;padding:26px 8px}
+  .dash-empty::before{content:"";width:38px;height:38px;border-radius:11px;background:var(--canvas) center/20px no-repeat;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a7b2c6' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6'/></svg>");border:1px solid var(--line)}
+
+  /* — primary action buttons: tactile press — */
+  .boq-btn,.add-btn,.boq-btn:hover,.add-btn:hover{transition:transform .14s ease,box-shadow .16s ease,background .15s ease}
+  .boq-btn:active,.add-btn:active{transform:translateY(1px) scale(.992)}
+
+  /* — sidebar: depth on brand + active sheen — */
+  .sidebar{box-shadow:inset -1px 0 0 rgba(255,255,255,.05)}
+  .nav-item[aria-current="true"]{background:linear-gradient(90deg,color-mix(in srgb,var(--navy) 92%,#fff),var(--navy));box-shadow:inset 3px 0 0 var(--gold),0 4px 14px rgba(0,0,0,.18)}
+  .sb-logo{box-shadow:0 3px 10px rgba(0,0,0,.25)}
+
+  /* — drawers glide with a touch more presence — */
+  .drawer{box-shadow:-18px 0 60px rgba(10,18,35,.32)}
+
+  /* — recent rows: clearer affordance — */
+  .recent-row{transition:background .15s ease,transform .15s ease}
+  .recent-row:hover{transform:translateX(2px)}
+
+  /* — workspace scrollbar refinement — */
+  .workspace::-webkit-scrollbar{width:11px}
+  .workspace::-webkit-scrollbar-thumb{background:rgba(26,58,110,.18);border-radius:8px;border:3px solid var(--canvas)}
+  .workspace::-webkit-scrollbar-thumb:hover{background:rgba(26,58,110,.3)}
+
+  /* — Notice Board: subtle, non-obtrusive system-update strip — */
+  .notice-board{display:flex;align-items:center;gap:11px;background:linear-gradient(90deg,color-mix(in srgb,var(--gold) 14%,#fff),var(--paper));border:1px solid color-mix(in srgb,var(--gold) 38%,var(--line));border-left:3px solid var(--gold);border-radius:12px;padding:10px 13px;font-size:12.5px;color:var(--ink);box-shadow:0 2px 12px rgba(224,153,42,.08)}
+  .notice-board .nb-ic{width:30px;height:30px;border-radius:8px;background:color-mix(in srgb,var(--gold) 22%,#fff);color:#9a6710;display:flex;align-items:center;justify-content:center;flex:none}
+  .notice-board .nb-ic svg{width:16px;height:16px}
+  .notice-board .nb-txt{flex:1;min-width:0;line-height:1.45}
+  .notice-board .nb-txt b{color:var(--navy)}
+  .notice-board .nb-cta{flex:none;display:inline-flex;align-items:center;gap:6px;text-decoration:none;background:#1c7a44;color:#fff;font-weight:700;font-size:11.5px;padding:7px 12px;border-radius:8px;white-space:nowrap;transition:.14s}
+  .notice-board .nb-cta:hover{filter:brightness(1.07);transform:translateY(-1px)}
+  .notice-board .nb-cta svg{width:13px;height:13px}
+  .notice-board .nb-x{flex:none;border:none;background:transparent;color:var(--ink-soft);cursor:pointer;font-size:17px;line-height:1;padding:3px 6px;border-radius:6px}
+  .notice-board .nb-x:hover{background:rgba(0,0,0,.06);color:var(--ink)}
+  @media(max-width:620px){.notice-board .nb-cta span{display:none}}
+
+  /* — friendly empty states for CRM drawers (projects / clients) — */
+  .pm-empty{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;color:var(--ink-soft);font-size:12.5px;line-height:1.55;padding:30px 14px}
+  .pm-empty::before{content:"";width:46px;height:46px;border-radius:13px;border:1px solid var(--line-strong);box-shadow:0 2px 8px rgba(19,33,58,.05);background:#fff center/24px no-repeat;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a7b2c6' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M22 12h-6l-2 3h-4l-2-3H2'/><path d='M5.5 5.5 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.5-6.5A2 2 0 0 0 16.8 4H7.2a2 2 0 0 0-1.7 1.5z'/></svg>")}
+
+  /* — vendor support contact buttons (WhatsApp / Call / Email) — */
+  .vendor-contact{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .vendor-contact a{flex:1;min-width:92px;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;font-weight:700;font-size:11.5px;padding:9px 10px;border-radius:9px;border:1px solid var(--line-strong);transition:.14s}
+  .vendor-contact a svg{width:14px;height:14px;flex:none}
+  .vendor-contact a:hover{transform:translateY(-1px);filter:brightness(1.05)}
+  .vc-wa{background:#1c7a44;color:#fff;border-color:#1c7a44}
+  .vc-call{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .vc-mail{background:var(--paper);color:var(--ink)}
+  .exp-card .vendor-contact{margin-top:14px}
+  .exp-card .vendor-contact a{border-color:rgba(255,255,255,.2)}
+  .exp-card .vc-mail{background:rgba(255,255,255,.08);color:#fff}
+
+  /* — responsive: avoid cramped result cards on tablets — */
+  @media(max-width:900px){.results{grid-template-columns:repeat(2,1fr)}}
+
+  /* — fix horizontal overflow: 1fr tracks must be allowed to shrink — */
+  .launch-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media(max-width:640px){.launch-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .launch{min-width:0}
+  .launch .lt{min-width:0;overflow:hidden}
+  .launch .ln,.launch .ld{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;max-width:100%}
+  .dash-metrics,.home-stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+  @media(max-width:760px){.dash-metrics,.home-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .metric .mv{overflow:hidden;text-overflow:ellipsis}
+
+  /* ============================================================
+     ✦ LOGIN / WELCOME GATE
+     ============================================================ */
+  .login-gate{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at 20% 15%,#1c3a6b 0%,#13213a 45%,#0a1124 100%)}
+  .login-gate::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(224,153,42,.30),transparent 62%);top:-170px;right:-140px;filter:blur(40px);pointer-events:none}
+  .login-gate::after{content:"";position:absolute;width:540px;height:540px;border-radius:50%;background:radial-gradient(circle,rgba(45,128,224,.30),transparent 62%);bottom:-200px;left:-160px;filter:blur(44px);pointer-events:none}
+  .lg-card{position:relative;display:grid;grid-template-columns:1.05fr 1fr;width:min(800px,100%);max-height:94vh;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 36px 90px rgba(3,8,20,.6);animation:lgCardIn .36s cubic-bezier(.22,.7,.3,1) both}
+  @keyframes lgCardIn{from{opacity:0;transform:translateY(22px) scale(.98)}to{opacity:1;transform:none}}
+  .lg-pin{text-align:center;letter-spacing:.55em;font-size:20px;font-weight:700;padding-left:.55em!important}
+  .lg-form.shake{animation:shake .4s}
+  .lg-opt{font-weight:500;text-transform:none;letter-spacing:0;color:var(--ink-soft)}
+  .lg-alt{margin-top:14px;align-self:center;white-space:nowrap;background:none;border:none;color:var(--ink-soft);font-family:inherit;font-size:11.5px;font-weight:600;cursor:pointer;text-decoration:underline}
+  .lg-alt:hover{color:var(--navy)}
+  .lg-brand{position:relative;overflow:hidden;background:linear-gradient(155deg,#1f4587,#13213a);color:#fff;padding:38px 32px;display:flex;flex-direction:column}
+  .lg-brand::after{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.07) 1px,transparent 0);background-size:20px 20px;pointer-events:none}
+  .lg-brand > *{position:relative;z-index:1}
+  .lg-logo{width:60px;height:60px;border-radius:16px;background:var(--gold);color:#3a2300;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:21px;box-shadow:0 8px 22px rgba(224,153,42,.4);overflow:hidden}
+  .lg-logo img{width:100%;height:100%;object-fit:cover}
+  .lg-bname{font-size:25px;font-weight:700;letter-spacing:-.01em;margin-top:18px}
+  .lg-bname span{color:var(--gold)}
+  .lg-tag{font-size:12.5px;opacity:.82;margin-top:7px;line-height:1.55;max-width:270px}
+  .lg-feats{list-style:none;margin:24px 0 0;display:flex;flex-direction:column;gap:13px}
+  .lg-feats li{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:500}
+  .lg-feats li .fi{width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;flex:none;color:var(--gold)}
+  .lg-feats li .fi svg{width:16px;height:16px}
+  .lg-by{margin-top:auto;padding-top:26px;font-size:11.5px;opacity:.8;line-height:1.6}
+  .lg-by b{color:#fff;font-weight:700}
+  .lg-by a{color:var(--gold);text-decoration:none;font-weight:700}
+  .lg-by a:hover{text-decoration:underline}
+  .lg-form{padding:40px 36px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto}
+  .lg-form h2{font-size:23px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+  .lg-form .lg-sub{font-size:12.5px;color:var(--ink-soft);margin:6px 0 24px;line-height:1.5}
+  .lg-field{margin-bottom:15px}
+  .lg-field label{display:block;font-size:10.5px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+  .lg-field input{width:100%;border:1.5px solid var(--line-strong);background:var(--canvas);border-radius:11px;padding:12px 13px;font-family:inherit;font-size:14px;font-weight:500;color:var(--ink);outline:none;transition:.15s}
+  .lg-field input:focus{border-color:var(--navy);background:#fff;box-shadow:0 0 0 3px rgba(26,58,110,.14)}
+  .lg-field input.err{border-color:#c0392b;box-shadow:0 0 0 3px rgba(192,57,43,.13)}
+  .lg-enter{margin-top:8px;border:none;cursor:pointer;width:100%;background:var(--navy);color:#fff;font-family:inherit;font-weight:700;font-size:15px;padding:14px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 10px 26px rgba(26,58,110,.3);transition:.15s}
+  .lg-enter:hover{background:var(--navy-d);transform:translateY(-1px)}
+  .lg-enter:active{transform:translateY(1px)}
+  .lg-enter svg{width:17px;height:17px}
+  .lg-note{display:flex;align-items:center;justify-content:center;gap:6px;font-size:10.5px;color:var(--ink-soft);text-align:center;margin-top:16px}
+  .lg-note svg{width:13px;height:13px;flex:none}
+  @media(max-width:680px){
+    .lg-card{grid-template-columns:1fr;max-height:96vh;overflow-y:auto}
+    .lg-brand{padding:28px 26px}
+    .lg-feats{margin-top:18px;gap:10px}
+    .lg-by{padding-top:20px}
+    .lg-form{padding:28px 26px}
+  }
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="gNavy" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c5293"></stop><stop offset="1" stop-color="#13213a"></stop></linearGradient>
+  <linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3cd7a"></stop><stop offset="0.5" stop-color="#e0992a"></stop><stop offset="1" stop-color="#b9781c"></stop></linearGradient>
+  <symbol id="ep-emblem" viewBox="0 0 120 120">
+    <g fill="url(#gNavy)">
+      <rect x="55" y="3" width="10" height="15" rx="2.5"></rect>
+      <rect x="55" y="3" width="10" height="15" rx="2.5" transform="rotate(45 60 60)"></rect>
+      <rect x="55" y="3" width="10" height="15" rx="2.5" transform="rotate(90 60 60)"></rect>
+      <rect x="55" y="3" width="10" height="15" rx="2.5" transform="rotate(135 60 60)"></rect>
+      <rect x="55" y="3" width="10" height="15" rx="2.5" transform="rotate(180 60 60)"></rect>
+      <rect x="55" y="3" width="10" height="15" rx="2.5" transform="rotate(225 60 60)"></rect>
+      <rect x="55" y="3" width="10" height="15" rx="2.5" transform="rotate(270 60 60)"></rect>
+      <rect x="55" y="3" width="10" height="15" rx="2.5" transform="rotate(315 60 60)"></rect>
+    </g>
+    <circle cx="60" cy="60" r="45" fill="#ffffff" stroke="url(#gNavy)" stroke-width="6"></circle>
+    <circle cx="60" cy="60" r="36" fill="none" stroke="#e7ecf4" stroke-width="1.5"></circle>
+    <rect x="36" y="83" width="48" height="4.5" rx="2" fill="url(#gNavy)"></rect>
+    <rect x="38" y="63" width="11" height="20" rx="1.5" fill="url(#gNavy)"></rect>
+    <rect x="71" y="58" width="11" height="25" rx="1.5" fill="url(#gNavy)"></rect>
+    <rect x="40.5" y="66" width="2.6" height="2.6" fill="#fff"></rect><rect x="44.6" y="66" width="2.6" height="2.6" fill="#fff"></rect><rect x="40.5" y="71" width="2.6" height="2.6" fill="#fff"></rect><rect x="44.6" y="71" width="2.6" height="2.6" fill="#fff"></rect>
+    <rect x="73.5" y="61" width="2.6" height="2.6" fill="#fff"></rect><rect x="77.6" y="61" width="2.6" height="2.6" fill="#fff"></rect><rect x="73.5" y="66" width="2.6" height="2.6" fill="#fff"></rect><rect x="77.6" y="66" width="2.6" height="2.6" fill="#fff"></rect>
+    <rect x="56.5" y="52" width="7" height="31" rx="1.5" fill="url(#gGold)"></rect>
+    <path d="M60 31 L46 55 L54 55 L54 60 L66 60 L66 55 L74 55 Z" fill="url(#gGold)"></path>
+  </symbol>
+</defs></svg>
 <div class="shell">
   <!-- ============ SIDEBAR ============ -->
   <aside class="sidebar">
@@ -916,6 +1116,12 @@
 
     <div class="ws-body">
       <div class="ws-col" id="homeView">
+        <div class="notice-board" id="noticeBoard" role="status" style="display:none">
+          <span class="nb-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v3a1 1 0 0 0 1 1h2l3.3 3.3a1 1 0 0 0 1.7-.7V7.4a1 1 0 0 0-1.7-.7L6 10H4a1 1 0 0 0-1 1z"/><path d="M16 9a3 3 0 0 1 0 6M19.5 6.5a7 7 0 0 1 0 11"/></svg></span>
+          <span class="nb-txt"><b>What's new</b> — Premium dashboard polish &amp; NPR (रू) pricing now live. Need a license or support?</span>
+          <a class="nb-cta" id="noticeWa" href="https://wa.me/9779801069733?text=Hi%20Asraya%20Create%2C%20I%20need%20EstimatePro%20ERP%20license%2Fsupport." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6 0-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20z"/></svg><span>Chat support</span></a>
+          <button class="nb-x" id="noticeClose" aria-label="Dismiss notice">×</button>
+        </div>
         <div class="home-hero">
           <div class="hh-logo" id="homeLogo"></div>
           <div>
@@ -1112,12 +1318,18 @@
           <div class="lic-row"><span>Current plan</span><span class="lic-badge" id="licPlan">Pro</span></div>
           <div class="lic-row"><span>Valid until</span><b id="licValid">Lifetime</b></div>
           <div class="lic-key"><input id="licKey" placeholder="Enter activation key"><button id="licUpgrade" type="button">Upgrade</button></div>
-          <div class="dm-note" style="margin-top:4px">Commercial license — activation keys managed by Prerak. Keep your key safe.</div>
+          <div class="dm-note" style="margin-top:4px">Commercial license by <b>Asraya Create</b>. To buy or activate a key, contact us:</div>
+          <div class="vendor-contact">
+            <a class="vc-wa" href="https://wa.me/9779801069733?text=Hi%20Asraya%20Create%2C%20I%20want%20to%20buy%2Factivate%20EstimatePro%20ERP%20license." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.5-5.6c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6 0-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>WhatsApp</a>
+            <a class="vc-call" href="tel:9801069733"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.5-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg>Call</a>
+            <a class="vc-mail" href="/cdn-cgi/l/email-protection#46273534273f2725342327322368272506212b272f2a6825292b793533242c2325327b0335322f2b2732231634296374760314166374760a2f2523283523"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 7-10 6L2 7"/></svg>Email</a>
+          </div>
         </div>
       </div>
     </div>
     <div class="modal-foot">
       <span class="note">यो tool अरू company लाई दिँदा यहीँ details &amp; rate बदल्नुस्।</span>
+      <button class="ghost" id="pfLogout" type="button">Sign out</button>
       <button class="ghost" id="pfCancel">Cancel</button>
       <button class="save" id="pfSave">Save</button>
     </div>
@@ -1143,7 +1355,39 @@
     <p id="expMsg">Your 7-day trial of EstimatePro ERP has ended. Enter an Activation Key to unlock all features — forever.</p>
     <input id="expKey" type="text" placeholder="EP-XXXX-XXXX" autocomplete="off" spellcheck="false">
     <button id="expActivate">Activate Lifetime License</button>
-    <div class="exp-note" id="expNote">Activation keys are provided after purchase.</div>
+    <div class="exp-note" id="expNote">No key yet? Contact <b>Asraya Create</b> to purchase — activated instantly.</div>
+    <div class="vendor-contact">
+      <a class="vc-wa" href="https://wa.me/9779801069733?text=Hi%20Asraya%20Create%2C%20my%20EstimatePro%20ERP%20trial%20ended.%20I%20want%20a%20license." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.5-5.6c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6 0-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>WhatsApp</a>
+      <a class="vc-call" href="tel:9801069733"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.5-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg>Call</a>
+      <a class="vc-mail" href="/cdn-cgi/l/email-protection#4c2d3f3e2d352d2f3e292d3829622d2f0c2b212d2520622f2321733f392e26292f3871093f3825212d38291c3e23697e7c091e1c697e7c00252f29223f29"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 7-10 6L2 7"/></svg>Email</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Login / Welcome gate ============ -->
+<div class="login-gate" id="loginGate" style="display:none">
+  <div class="lg-card">
+    <div class="lg-brand">
+      <div class="lg-logo" id="lgLogo">YC</div>
+      <div class="lg-bname">EstimatePro <span>ERP</span></div>
+      <div class="lg-tag">Construction &amp; Engineering — professional estimating, BOQ &amp; quotation, fully offline.</div>
+      <ul class="lg-feats">
+        <li><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7h6M9 11h6M9 15h4"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg></span>Smart BOQ &amp; cost estimation</li>
+        <li><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>Quotation, PDF &amp; WhatsApp share</li>
+        <li><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 5a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6"/></svg></span>Clients &amp; Projects CRM</li>
+        <li><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17l9-9"/></svg></span>Works fully offline on any device</li>
+      </ul>
+      <div class="lg-by">Powered by <b>Asraya Create</b><br><a href="https://wa.me/9779801069733?text=Hi%20Asraya%20Create%2C%20I%20use%20EstimatePro%20ERP." target="_blank" rel="noopener">WhatsApp 9801069733</a> · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8aebf9f8ebf3ebe9f8efebfeefa4ebe9caede7ebe3e6a4e9e5e7">[email&#160;protected]</a></div>
+    </div>
+    <div class="lg-form">
+      <h2 id="lgTitle">Welcome 👋</h2>
+      <div class="lg-sub" id="lgSub">Set up your access — everything stays on this device.</div>
+      <div class="lg-field" id="lgNameField"><label>Your name</label><input id="lgName" autocomplete="name" placeholder="e.g. Ramesh Thapa"></div>
+      <div class="lg-field" id="lgPinField"><label id="lgPinLabel">Create a 4-digit PIN <span class="lg-opt">(optional)</span></label><input id="lgPin" class="lg-pin" type="password" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="••••"></div>
+      <button class="lg-enter" id="lgEnter"><span id="lgEnterTxt">Create &amp; Enter</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <button type="button" class="lg-alt" id="lgForgot" style="display:none">Forgot PIN?</button>
+      <div class="lg-note" id="lgNote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Stored privately on this device — no account needed.</div>
+    </div>
   </div>
 </div>
 
@@ -1210,6 +1454,33 @@
   </div>
 </div>
 
+<!-- ============ Calculator + Converter ============ -->
+<div class="overlay" id="calcOverlay">
+  <div class="drawer">
+    <div class="drawer-head"><h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 14h4M16 14h.01M8 18h.01M12 18h.01"/></svg> Calculator + Converter</h2><button class="x" id="calcClose">✕</button></div>
+    <div class="drawer-body">
+      <div class="calc-today" id="calcToday"></div>
+      <div class="seg-tabs" id="calcTabs">
+        <button class="active" data-ctab="calc">Calculator</button>
+        <button data-ctab="conv">Unit Converter</button>
+      </div>
+      <div id="calcTabCalc">
+        <div class="calc-disp"><div class="calc-expr" id="calcExpr">&nbsp;</div><div class="calc-out" id="calcOut">0</div></div>
+        <div class="calc-pad" id="calcPad"></div>
+      </div>
+      <div id="calcTabConv" style="display:none">
+        <div class="conv-type" id="convType"></div>
+        <div class="conv-io">
+          <div class="conv-field"><input type="number" id="convIn" value="1"><select id="convFrom"></select></div>
+          <div class="conv-eq">=</div>
+          <div class="conv-field"><input type="number" id="convOut" readonly><select id="convTo"></select></div>
+        </div>
+        <div class="conv-note" id="convNote"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ============ Material Master DB drawer ============ -->
 <div class="overlay" id="matOverlay">
   <div class="drawer">
@@ -1244,7 +1515,7 @@
 <!-- ============ first-run onboarding ============ -->
 <div class="lock" id="onboard" style="display:none">
   <div class="lock-card onboard-card">
-    <div class="ob-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:30px;height:30px"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></div>
+    <div class="ob-logo" style="background:#fff;padding:6px;overflow:hidden"><svg viewBox="0 0 120 120" style="width:100%;height:100%"><use href="#ep-emblem"></use></svg></div>
     <h2>EstimatePro ERP मा स्वागत छ! 👋</h2>
     <p class="ob-intro">इस्टिमेट र BOQ कोटेशन बनाउन यी ू सजिला स्टेप फलो गर्नुहोस्:</p>
     <div class="ob-steps">
@@ -1265,7 +1536,7 @@
 <div class="toast" id="toast"></div>
 <div id="printArea"></div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 //// ===== constants =====
 const BAG=1.226, M3=0.0283168, DRYC=1.54, DRYP=1.30, BOARD=32;
 // unit conversion + rate-unit cross-conversion
@@ -1279,6 +1550,12 @@ const METRIC={vol:"cum",area:"sqm",len:"m"};
 const IMP={vol:"cft",area:"sft",len:"rft"};
 const UNAME={cft:"cuft",cum:"cum",sft:"sft",sqm:"sqm",rft:"rnft",m:"mtr",bag:"bag",kg:"kg",pc:"pc",L:"L",sheet:"sheet",watt:"watt",pt:"pt"};
 const GROUP_UNITS={vol:[["cft","cuft"],["cum","cum"]],area:[["sft","sft"],["sqm","sqm"]],len:[["rft","rnft"],["m","mtr"]]};
+// convert a per-unit RATE when its unit changes (e.g. Rs60/cft -> Rs2119/cum). grp: vol/area/len
+function convertRate(v,fromU,toU,grp){v=parseFloat(v)||0;if(!grp||fromU===toU)return v;const met=METRIC[grp];
+  // 1 metric = (1/FACTOR) imperial units, so rate per metric = rate per imperial / FACTOR
+  if(fromU!==met&&toU===met)return Math.round((v/FACTOR[grp])*100)/100; // imp -> metric
+  if(fromU===met&&toU!==met)return Math.round((v*FACTOR[grp])*100)/100; // metric -> imp
+  return v;}
 
 // measurement-book row configs
 function n1(x){const n=parseFloat(x);return isFinite(n)&&n>0?n:1;}
@@ -1338,6 +1615,9 @@ const CATS={
   solar:{nm:"Solar PV",desc:"Panels + inverter by system size",grp:"MEP",measure:"count",countLabel:"System size",countUnit:"kW",countStep:"0.5",countDef:3,
     calc(Q,s,w){const panels=Math.ceil(Q*1000/s.panelW);
       return{rows:[ro("Capacity",Q*1000,"watt","solar"),ro("Panels",panels,`@${s.panelW}W`,null,true),ro("Inverter",Math.ceil(Q),"kW",null,true)],sub:`${fx(Q,1)} kW · ${panels}× ${s.panelW}W panel`};}},
+  solarwh:{nm:"Solar Water Heater",desc:"Tube-type heater — priced per tube by system size",grp:"MEP",measure:"count",countLabel:"No. of tubes",countUnit:"tube",countStep:"1",countDef:24,
+    calc(Q,s,w){const tubes=Math.round(Q),per=whRate(tubes),sets=Math.max(1,Math.round(tubes/(s.whTubes||24)));
+      return{rows:[{n:"Solar tubes",val:tubes,u:"tube",int:true,rate:per,rateU:"tube",grp:null,rateKey:null,cost:tubes*per},{n:"System set",val:sets,u:`${s.whTubes||24}-tube`,int:true,rate:0,rateU:null,grp:null,rateKey:null,cost:0}],sub:`${tubes} tubes · ${profile.currency} ${per}/tube`};}},
   elec:{nm:"Electrical",desc:"Concealed wiring by point count",grp:"MEP",measure:"count",countLabel:"Points",countUnit:"pts",countStep:"1",countDef:30,
     calc(Q,s,w){return{rows:[ro("Points",Q,"pts","elec",true),ro("Wire",Q*15,"metre",null)],sub:`${fx(Q,0)} points · ${fx(Q*15,0)}m wire`};}},
   plumb:{nm:"Plumbing",desc:"Water + drain points, CPVC/PPR",grp:"MEP",measure:"count",countLabel:"Points",countUnit:"pts",countStep:"1",countDef:14,
@@ -1372,6 +1652,7 @@ function ro(n,val,u,key,int){
   return{n,val,u,int:!!int,rate,rateU,grp,rateKey:key||null,cost};
 }
 function gradeName(x){return({"1:2:4":"15","1:1.5:3":"20","1:1:2":"25"})[x]||"";}
+function whRate(tubes){if(tubes<=20)return 2500;if(tubes<=24)return 3000;return 3500;}
 function catRateKeys(c){return({rcc:["cement","sand","agg","steel"],pcc:["cement","sand","agg"],brick:["brick","cement","sand"],earth:["earth"],rebar:["steel","bindwire"],formwork:["formwork"],dpc:["dpc"],aac:["aacblock","aac","aacglue"],prefab:["prefab"],parquet:["parquet","underlay"],skylight:["skylight"],plaster:["cement","sand"],tile:["tile","cement","sand"],paint:["paint","primer","putty"],gypsum:["gypsum","channel"],roof:["sheet","trussRate","purlin","ridge","bolt","mspaint"],upvc:["upvc"],kitchen:["kitchen","ply"],wardrobe:["wardrobe","ply"],solar:["solar"],elec:["elec"],plumb:["plumb"]})[c]||[];}
 // BOQ material/labour line — qty shown in the rate's unit so qty × rate = amount exactly
 function boqMat(r){
@@ -1395,7 +1676,7 @@ const DEFAULT_PROFILE={
   company:"Your Company Name",
   tagline:"Construction & Engineering",
   address:"",website:"",
-  phone:"",phone2:"",email:"info@yourcompany.com",initials:"YC",logoImg:"",currency:"Rs",pin:"",theme:"prerak",
+  phone:"",phone2:"",email:"info@yourcompany.com",initials:"YC",logoImg:"",currency:"रू",pin:"",theme:"prerak",
   license:{plan:"Pro",validUntil:"Lifetime",key:""},
   contract:"1. This agreement is valid for 15 days from the date of proposal.\n2. Payment milestones: 40% advance to commence work, 40% on completion of structure/mid-stage, 20% on final handover.\n3. Scope covers only the items listed in the BOQ/schedule above; any additional work will be quoted separately.\n4. Material rates may vary with market conditions; major variations will be communicated in advance.\n5. Project timeline will be mutually agreed in writing before commencement.\n6. Any dispute shall be settled amicably as per prevailing local laws.",
   rates:{cement:{v:800,u:"bag"},sand:{v:60,u:"cft"},agg:{v:80,u:"cft"},steel:{v:110,u:"kg"},brick:{v:18,u:"pc"},tile:{v:95,u:"sft"},paint:{v:650,u:"L"},primer:{v:350,u:"L"},putty:{v:45,u:"kg"},gypsum:{v:85,u:"sft"},channel:{v:60,u:"rft"},sheet:{v:950,u:"pc"},trussRate:{v:115,u:"kg"},purlin:{v:115,u:"kg"},ridge:{v:140,u:"rft"},bolt:{v:15,u:"pc"},mspaint:{v:550,u:"L"},upvc:{v:950,u:"sft"},kitchen:{v:1850,u:"rft"},wardrobe:{v:1600,u:"sft"},ply:{v:2600,u:"sheet"},solar:{v:90,u:"watt"},elec:{v:1200,u:"pt"},plumb:{v:1500,u:"pt"},earth:{v:35,u:"cft"},bindwire:{v:120,u:"kg"},formwork:{v:55,u:"sft"},dpc:{v:48,u:"sft"},aac:{v:62,u:"sft"},aacblock:{v:78,u:"pc"},aacglue:{v:680,u:"bag"},prefab:{v:185,u:"sft"},parquet:{v:165,u:"sft"},underlay:{v:18,u:"sft"},skylight:{v:850,u:"sft"}},
@@ -1516,7 +1797,8 @@ function renderNav(){
   [["Projects",'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',openProjects],
    ["Clients",'<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 5a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6"/>',openClients],
    ["Templates",'<path d="M4 4h16v4H4zM4 11h7v9H4zM14 11h6v9h-6z"/>',openTemplates],
-   ["Master Rates & Services",'<path d="M3 9h18M9 21V9M4 4h16a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/>',openMaterials]
+   ["Master Rates & Services",'<path d="M3 9h18M9 21V9M4 4h16a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/>',openMaterials],
+   ["Calculator + Converter",'<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h4M8 18h.01M12 18h.01"/>',openCalc]
   ].forEach(([nm,ic,fn])=>{const b=document.createElement("button");b.className="nav-item";b.innerHTML=`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ic}</svg><span class="nm">${nm}</span>`;b.addEventListener("click",()=>{document.body.classList.remove("nav-open");fn();});sbNav.appendChild(b);});
   GROUPS.forEach(grpName=>{
     const lab=document.createElement("div");lab.className="nav-grp";lab.textContent=grpName;sbNav.appendChild(lab);
@@ -1721,6 +2003,7 @@ function renderMethod(){
   else if(cat==="upvc")methodEl.appendChild(mChips("Type",[["Sliding","Sliding"],["Casement","Casement"],["Fixed","Fixed"]],()=>s.upvcType,v=>s.upvcType=v));
   else if(cat==="kitchen")methodEl.appendChild(mChips("Finish",[["Laminate","Laminate"],["Acrylic","Acrylic"],["PU","PU"]],()=>s.kitchenFin,v=>s.kitchenFin=v));
   else if(cat==="solar")methodEl.appendChild(mChips("Panel",[[450,"450W"],[550,"550W"],[660,"660W"]],()=>s.panelW,v=>s.panelW=v));
+  else if(cat==="solarwh")methodEl.appendChild(mChips("System",[[20,"20 tube"],[24,"24 tube"],[26,"26 tube"],[30,"30 tube"]],()=>s.whTubes||24,v=>{s.whTubes=v;const cur=state.vals.solarwh;if(cur)cur.qty=v;}));
   else any=false;
   // always: wastage
   methodEl.appendChild(mSlider("Wastage",()=>s.wastage,v=>s.wastage=v,0,15,1," %"));
@@ -1751,9 +2034,9 @@ function setOverride(cat,name,v){if(!state.overrides)state.overrides={};if(!stat
 function rowKey(r){return r.kind==="mat"?"m:"+r.n:"l:"+r.role;}
 
 function kgBasis(cat){const s=state.settings,Q=netQty(cat),w=1+s.wastage/100;if(cat==="roof")return(s.truss+s.purlin)*Q*w;if(cat==="rcc")return Q*M3*s.steel*w;return 0;}
-function laborUnits(cat){const gp=measGrp(cat),opts=[["day","/day"]];if(gp){opts.push([GROUP_UNITS[gp][0][0],"/"+GROUP_UNITS[gp][0][0]]);opts.push([GROUP_UNITS[gp][1][0],"/"+GROUP_UNITS[gp][1][0]]);}if(kgBasis(cat)>0)opts.push(["kg","/kg"]);return opts;}
-function laborQty(cat,out,u){const gp=measGrp(cat),Q=netQty(cat);if(u==="day")return out>0?Q/out:0;if(u==="kg")return kgBasis(cat);if(gp){if(u===GROUP_UNITS[gp][0][0])return Q;if(u===GROUP_UNITS[gp][1][0])return Q*FACTOR[gp];}return Q;}
-function laborUnitLabel(u){return u==="day"?"manday":(UNAME[u]||u);}
+function laborUnits(cat){const gp=measGrp(cat),opts=[["day","/day"]];if(gp){opts.push([GROUP_UNITS[gp][0][0],"/"+GROUP_UNITS[gp][0][0]]);opts.push([GROUP_UNITS[gp][1][0],"/"+GROUP_UNITS[gp][1][0]]);}if(kgBasis(cat)>0)opts.push(["kg","/kg"]);opts.push(["nos","/nos"]);opts.push(["lumsum","Lumsum"]);return opts;}
+function laborQty(cat,out,u){const gp=measGrp(cat),Q=netQty(cat);if(u==="day")return out>0?Q/out:0;if(u==="kg")return kgBasis(cat);if(u==="lumsum")return 1;if(u==="nos")return Q;if(gp){if(u===GROUP_UNITS[gp][0][0])return Q;if(u===GROUP_UNITS[gp][1][0])return Q*FACTOR[gp];}return Q;}
+function laborUnitLabel(u){return u==="day"?"manday":(u==="lumsum"?"lumsum":(u==="nos"?"nos":(UNAME[u]||u)));}
 function analyze(cat){
   const c=CATS[cat],s=state.settings,Q=netQty(cat),w=1+s.wastage/100;
   const est=c.calc(Q,s,w);
@@ -2446,7 +2729,7 @@ document.getElementById("pfSave").addEventListener("click",()=>{
     phone2:document.getElementById("pfPhone2").value.trim(),
     email:document.getElementById("pfEmail").value.trim(),
     initials:(document.getElementById("pfInitials").value.trim()||"PRK").toUpperCase(),
-    logoImg:pfLogoTmp,signImg:pfSigTmp,stampImg:pfStampTmp,currency:cur?cur.dataset.val:"Rs",
+    logoImg:pfLogoTmp,signImg:pfSigTmp,stampImg:pfStampTmp,currency:cur?cur.dataset.val:"रू",
     pin:document.getElementById("pfPin").value.replace(/\D/g,"").slice(0,4),
     contract:document.getElementById("pfContract")?document.getElementById("pfContract").value:(profile&&profile.contract),
   });
@@ -2476,7 +2759,7 @@ function tryUnlock(){
 }
 document.getElementById("lockBtn").addEventListener("click",tryUnlock);
 lockInput.addEventListener("keydown",e=>{if(e.key==="Enter")tryUnlock();});
-document.getElementById("lockBtnTop").addEventListener("click",()=>{sessionStorage.removeItem("prerak-unlk");showLock();});
+document.getElementById("lockBtnTop").addEventListener("click",()=>{sessionStorage.removeItem("prerak-unlk");showGate();});
 
 //// ===== toast =====
 let toastT;const toastEl=document.getElementById("toast");
@@ -2502,6 +2785,57 @@ function openTemplates(){renderTemplates();tplOverlay.classList.add("open");}
 //// ===== Material Master DB =====
 const matOverlay=document.getElementById("matOverlay");
 function openMaterials(){document.body.classList.remove("nav-open");matSwitchTab("mat");renderMaterials();renderServiceLib();matOverlay.classList.add("open");}
+
+//// ===== Calculator + Unit Converter =====
+const calcOverlay=document.getElementById("calcOverlay");
+let calcExprStr="",calcDone=false;
+function openCalc(){document.body.classList.remove("nav-open");
+  const t=new Date(),ad=t.toLocaleDateString('en-GB',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+  const adKey=t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0");
+  const bs=(typeof bsFromAD==="function")?bsFromAD(adKey):"";
+  document.getElementById("calcToday").innerHTML=`<div class="ct-np">${bs||"—"}</div><div class="ct-ad">${ad}</div>`;
+  buildCalcPad();buildConv();calcCtab("calc");calcOverlay.classList.add("open");}
+document.getElementById("calcClose").addEventListener("click",()=>calcOverlay.classList.remove("open"));
+calcOverlay.addEventListener("click",e=>{if(e.target===calcOverlay)calcOverlay.classList.remove("open");});
+function calcCtab(tab){document.querySelectorAll("#calcTabs button").forEach(b=>b.classList.toggle("active",b.dataset.ctab===tab));document.getElementById("calcTabCalc").style.display=tab==="calc"?"":"none";document.getElementById("calcTabConv").style.display=tab==="conv"?"":"none";}
+document.querySelectorAll("#calcTabs button").forEach(b=>b.addEventListener("click",()=>calcCtab(b.dataset.ctab)));
+const CALC_KEYS=["C","←","%","÷","7","8","9","×","4","5","6","−","1","2","3","+","0",".","=","="];
+function buildCalcPad(){const pad=document.getElementById("calcPad");if(pad.childElementCount)return;pad.innerHTML="";
+  const keys=["C","←","%","÷","7","8","9","×","4","5","6","−","1","2","3","+","0",".","="];
+  keys.forEach(k=>{const b=document.createElement("button");b.textContent=k;b.className="ck"+("÷×−+".includes(k)?" op":"")+(k==="="?" eq":"")+(k==="C"?" clr":"")+(k==="0"?" zero":"");b.addEventListener("click",()=>calcPress(k));pad.appendChild(b);});}
+function calcPress(k){
+  const out=document.getElementById("calcOut"),exprEl=document.getElementById("calcExpr");
+  if(k==="C"){calcExprStr="";calcDone=false;out.textContent="0";exprEl.innerHTML="&nbsp;";return;}
+  if(k==="←"){calcExprStr=calcExprStr.slice(0,-1);out.textContent=calcExprStr||"0";return;}
+  if(k==="="){try{const expr=calcExprStr.replace(/×/g,"*").replace(/÷/g,"/").replace(/−/g,"-").replace(/%/g,"/100");if(!expr)return;const v=Function('"use strict";return ('+expr+')')();exprEl.textContent=calcExprStr+" =";out.textContent=(Math.round(v*10000)/10000).toLocaleString('en-IN');calcExprStr=String(v);calcDone=true;}catch(e){out.textContent="Error";}return;}
+  if(calcDone&&/[0-9.]/.test(k)){calcExprStr="";calcDone=false;exprEl.innerHTML="&nbsp;";}
+  calcDone=false;
+  const map={"×":"×","÷":"÷","−":"−","+":"+","%":"%"};
+  calcExprStr+=(map[k]||k);out.textContent=calcExprStr;
+}
+// converter — construction units
+const CONV={
+  "Length":{units:{"Feet (ft)":0.3048,"Inch (in)":0.0254,"Meter (m)":1,"Centimeter (cm)":0.01,"Millimeter (mm)":0.001,"Hand (haat)":0.4572,"Yard":0.9144},base:"m"},
+  "Area":{units:{"Sq.Feet (sft)":0.092903,"Sq.Meter (sqm)":1,"Sq.Yard":0.836127,"Ropani":508.737,"Aana":31.799,"Dhur":16.929,"Kattha":338.57,"Bigha":6772.63},base:"sqm"},
+  "Volume":{units:{"Cu.Feet (cft)":0.0283168,"Cu.Meter (cum)":1,"Litre":0.001,"Brass (100 cft)":2.83168},base:"cum"},
+  "Weight":{units:{"Kilogram (kg)":1,"Quintal":100,"Tonne":1000,"Pound (lb)":0.453592,"Bag cement (50kg)":50}, base:"kg"}
+};
+function buildConv(){
+  const tw=document.getElementById("convType");if(!tw.childElementCount){tw.innerHTML="";Object.keys(CONV).forEach((t,i)=>{const b=document.createElement("button");b.textContent=t;b.className="conv-tbtn"+(i===0?" active":"");b.addEventListener("click",()=>{document.querySelectorAll("#convType button").forEach(x=>x.classList.remove("active"));b.classList.add("active");fillConvUnits(t);});tw.appendChild(b);});}
+  fillConvUnits(Object.keys(CONV)[0]);
+}
+function fillConvUnits(type){const c=CONV[type],keys=Object.keys(c.units);
+  const from=document.getElementById("convFrom"),to=document.getElementById("convTo");
+  from.innerHTML=keys.map(k=>`<option>${k}</option>`).join("");to.innerHTML=keys.map(k=>`<option>${k}</option>`).join("");
+  from.dataset.type=type;to.value=keys[1]||keys[0];doConv();
+}
+function doConv(){const type=document.getElementById("convFrom").dataset.type,c=CONV[type];if(!c)return;
+  const v=parseFloat(document.getElementById("convIn").value)||0;
+  const f=c.units[document.getElementById("convFrom").value],t=c.units[document.getElementById("convTo").value];
+  const res=v*f/t;document.getElementById("convOut").value=Math.round(res*100000)/100000;
+  document.getElementById("convNote").textContent=`${v} ${document.getElementById("convFrom").value} = ${(Math.round(res*100000)/100000).toLocaleString('en-IN')} ${document.getElementById("convTo").value}`;
+}
+["convIn","convFrom","convTo"].forEach(id=>document.getElementById(id).addEventListener("input",doConv));
 function renderMaterials(){
   const cur=profile.currency,rg=document.getElementById("matRates");rg.innerHTML="";
   Object.keys(RATEMETA).forEach(k=>{const meta=RATEMETA[k],rate=profile.rates[k];if(!rate)return;
@@ -2509,7 +2843,7 @@ function renderMaterials(){
     const unitCtl=meta.grp?`<select class="unit-sel">`+GROUP_UNITS[meta.grp].map(([code,label])=>`<option value="${code}" ${rate.u===code?"selected":""}>/${label}</option>`).join("")+`</select>`:`<span class="unit-fixed">/${meta.fixed}</span>`;
     row.innerHTML=`<span class="ml">${meta.label}</span><div class="rate-ctl"><div class="numbox"><span class="pre">${cur}</span><input type="number" min="0" step="any" value="${rate.v}"></div>${unitCtl}</div>`;
     row.querySelector("input").addEventListener("input",e=>{rate.v=parseFloat(e.target.value)||0;saveProfile();if(typeof renderResults==="function")renderResults();});
-    const sel=row.querySelector("select");if(sel)sel.addEventListener("change",e=>{rate.u=e.target.value;saveProfile();renderResults();});
+    const sel=row.querySelector("select");if(sel)sel.addEventListener("change",e=>{const oldU=rate.u,newU=e.target.value;rate.v=convertRate(rate.v,oldU,newU,meta.grp);rate.u=newU;saveProfile();renderMaterials();renderResults();toast("Rate auto-converted: "+profile.currency+" "+fx(rate.v,2)+"/"+newU);});
     rg.appendChild(row);
   });
   const lg=document.getElementById("matLabor");lg.innerHTML="";
@@ -2737,7 +3071,25 @@ function applyTemplate(key){
 
 //// ===== offline licensing (7-day trial + lifetime keys) =====
 const TRIAL_DAYS=7;
-const VALID_KEYS=["EP-PRO-8899","EP-LIFETIME-1122","EP-ELITE-4455","EP-BUILD-7733","EP-MASTER-9001","BP-PRO-8899","BP-LIFETIME-1122","BP-ELITE-4455","BP-BUILD-7733","BP-MASTER-9001"];
+// ── Anti-piracy licensing — no plaintext keys in source ──
+// cyrb53 hash
+function _h53(str,seed){seed=seed||0;let h1=0xdeadbeef^seed,h2=0x41c6ce57^seed;for(let i=0,ch;i<str.length;i++){ch=str.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677);}h1=Math.imul(h1^(h1>>>16),2246822507);h1^=Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507);h2^=Math.imul(h1^(h1>>>13),3266489909);return(4294967296*(2097151&h2)+(h1>>>0)).toString(16).padStart(13,"0");}
+const _SECRET="AsrayaCreate::EstimatePro::2026::v1";
+// hashes of legacy keys already sold (plaintext never appears in file)
+const _LEGACY=["18a206f1c03f16","e9de9fd13956b","28314ed2cf659","1888407c093b23","132d4b54ef1d29","de6e20f2ced68","1d86664e5c23bb","1b79153d4ac109","c426f0606623a","098557f599bfa"];
+function _ksum(body){return _h53(body.toUpperCase()+_SECRET).slice(0,4).toUpperCase().replace(/[^A-Z0-9]/g,"0");}
+function _validKey(raw){
+  const k=(raw||"").trim().toUpperCase();
+  if(!k)return false;
+  // legacy hashed keys
+  if(_LEGACY.includes(_h53(k+_SECRET)))return true;
+  // algorithmic keys: EPRO-XXXX-XXXX-CCCC
+  const p=k.split("-");
+  if(p.length===4&&p[0]==="EPRO"){const body=p.slice(0,3).join("-");return _ksum(body)===p[3];}
+  return false;
+}
+// stable per-device fingerprint
+function _deviceId(){let d;try{d=localStorage.getItem("ep-dev");}catch(e){}if(!d){d=_h53(navigator.userAgent+"|"+screen.width+"x"+screen.height+"|"+Date.now()+"|"+Math.random());try{localStorage.setItem("ep-dev",d);}catch(e){}}return d;}
 const LIC_KEY="buildpro-license";
 function licLoad(){let l;try{l=JSON.parse(localStorage.getItem(LIC_KEY));}catch(e){}
   if(!l||!l.installed){l={installed:Date.now(),pro:false,key:""};localStorage.setItem(LIC_KEY,JSON.stringify(l));}
@@ -2749,8 +3101,8 @@ function daysLeft(){const used=(Date.now()-LIC.installed)/86400000;return Math.m
 function isExpired(){return !isPro() && daysLeft()<=0;}
 function activateKey(raw){const k=(raw||"").trim().toUpperCase();
   if(!k){toast("Enter an activation key");return false;}
-  if(!VALID_KEYS.includes(k)){toast("✗ Invalid activation key");return false;}
-  LIC.pro=true;LIC.key=k;licSave();
+  if(!_validKey(k)){toast("✗ Invalid activation key");return false;}
+  LIC.pro=true;LIC.key=k;LIC.device=_deviceId();LIC.activatedAt=Date.now();licSave();
   if(profile){if(!profile.license)profile.license={};profile.license.plan="PRO (Lifetime)";profile.license.validUntil="Lifetime";profile.license.key=k;saveProfile();}
   syncLicUI();renderTrialBanner();hideExpiry();
   toast("Activated — PRO Lifetime unlocked ✓");
@@ -2764,6 +3116,14 @@ function renderTrialBanner(){const b=document.getElementById("trialBanner");if(!
   const d=daysLeft();b.style.display="";b.className="trial-banner"+(d<=2?" urgent":"");
   b.innerHTML=`<span class="tb-txt">Trial Version — <b>${d}</b> day${d===1?"":"s"} left</span><button id="tbUpgrade">Upgrade Now</button>`;
   const u=document.getElementById("tbUpgrade");if(u)u.addEventListener("click",()=>{ if(isExpired())showExpiry(); else openProfile(false); });}
+const NOTICE_VER="ep-notice-v15";
+function initNoticeBoard(){
+  const nb=document.getElementById("noticeBoard");if(!nb)return;
+  if(localStorage.getItem(NOTICE_VER)==="dismissed"){nb.style.display="none";return;}
+  nb.style.display="flex";
+  const x=document.getElementById("noticeClose");
+  if(x)x.addEventListener("click",()=>{nb.style.display="none";try{localStorage.setItem(NOTICE_VER,"dismissed");}catch(e){}});
+}
 function showExpiry(){const el=document.getElementById("expLock");el.style.display="flex";requestAnimationFrame(()=>el.classList.add("show"));}
 function hideExpiry(){const el=document.getElementById("expLock");el.classList.remove("show");setTimeout(()=>{el.style.display="none";},320);}
 function enforceLicense(){if(isExpired())showExpiry();}
@@ -2771,12 +3131,86 @@ function ensureLicensed(){if(isExpired()){showExpiry();return false;}return true
 document.getElementById("expActivate").addEventListener("click",()=>activateKey(document.getElementById("expKey").value));
 document.getElementById("expKey").addEventListener("keydown",e=>{if(e.key==="Enter")activateKey(e.target.value);});
 
+//// ===== welcome + PIN gate =====
+const LOGIN_KEY="ep-login";
+let __freshProfile=false,__gateMode="register";
+function getLogin(){try{return JSON.parse(localStorage.getItem(LOGIN_KEY));}catch(e){return null;}}
+function isRegistered(){const l=getLogin();return !!(l&&l.name);}
+function isUnlocked(){return sessionStorage.getItem("prerak-unlk")==="1";}
+function needsGate(){if(!isRegistered())return true;return !isUnlocked();}
+function gateEl(id){return document.getElementById(id);}
+function configGate(){
+  const reg=isRegistered(),hasPin=!!(profile&&profile.pin),l=getLogin();
+  const lg=gateEl("lgLogo");if(lg){lg.innerHTML='<svg viewBox="0 0 120 120" style="width:100%;height:100%"><use href="#ep-emblem"></use></svg>';lg.style.background="#fff";lg.style.padding="4px";}
+  gateEl("lgPin").value="";gateEl("lgPin").classList.remove("err");
+  const nameF=gateEl("lgNameField"),pinF=gateEl("lgPinField"),forgot=gateEl("lgForgot");
+  if(!reg){
+    __gateMode="register";
+    nameF.style.display="";pinF.style.display="";forgot.style.display="none";
+    gateEl("lgTitle").innerHTML="Welcome 👋";
+    gateEl("lgSub").textContent="Set up your access — everything stays on this device.";
+    gateEl("lgPinLabel").innerHTML='Create a 4-digit PIN <span class="lg-opt">(optional)</span>';
+    gateEl("lgEnterTxt").textContent="Create & Enter";
+    gateEl("lgNote").lastChild.textContent="Stored privately on this device — no account needed.";
+  } else if(hasPin){
+    __gateMode="unlock";
+    nameF.style.display="none";pinF.style.display="";forgot.style.display="";
+    gateEl("lgTitle").textContent="Welcome back"+(l&&l.name?", "+l.name.split(" ")[0]:"");
+    gateEl("lgSub").textContent="Enter your 4-digit PIN to unlock.";
+    gateEl("lgPinLabel").textContent="Enter PIN";
+    gateEl("lgEnterTxt").textContent="Unlock";
+    gateEl("lgNote").lastChild.textContent="Your data is locked on this device.";
+  } else {
+    __gateMode="setup";
+    nameF.style.display="none";pinF.style.display="";forgot.style.display="none";
+    gateEl("lgTitle").textContent="Welcome back"+(l&&l.name?", "+l.name.split(" ")[0]:"");
+    gateEl("lgSub").textContent="You're all set. Add a PIN for security, or just continue.";
+    gateEl("lgPinLabel").innerHTML='Set a 4-digit PIN <span class="lg-opt">(optional)</span>';
+    gateEl("lgEnterTxt").textContent="Continue";
+    gateEl("lgNote").lastChild.textContent="A PIN keeps your estimates private on shared devices.";
+  }
+}
+function showGate(){configGate();const g=gateEl("loginGate");g.style.display="flex";setTimeout(()=>{const f=(__gateMode==="register")?gateEl("lgName"):gateEl("lgPin");if(f)f.focus();},150);}
+function shakeGate(){const f=document.querySelector(".lg-form");if(!f)return;f.classList.remove("shake");void f.offsetWidth;f.classList.add("shake");}
+function pinErr(){const p=gateEl("lgPin");p.classList.add("err");p.value="";p.focus();}
+function finishGate(msg){sessionStorage.setItem("prerak-unlk","1");gateEl("loginGate").style.display="none";if(msg)toast(msg);afterLogin();}
+function handleGate(){
+  const pin=(gateEl("lgPin").value||"").replace(/\D/g,"");
+  if(__gateMode==="register"){
+    const nEl=gateEl("lgName"),name=nEl.value.trim();
+    if(!name){nEl.classList.add("err");nEl.focus();toast("Please enter your name");return;}
+    if(pin&&pin.length<4){pinErr();shakeGate();toast("PIN must be 4 digits");return;}
+    try{localStorage.setItem(LOGIN_KEY,JSON.stringify({name:name,at:Date.now()}));}catch(e){}
+    if(pin.length===4){profile.pin=pin;saveProfile();}
+    finishGate("Welcome, "+name.split(" ")[0]+" ✓");
+  } else if(__gateMode==="unlock"){
+    if(pin===profile.pin)finishGate("Unlocked ✓");
+    else{pinErr();shakeGate();}
+  } else {
+    if(pin){if(pin.length<4){pinErr();shakeGate();toast("PIN must be 4 digits");return;}profile.pin=pin;saveProfile();finishGate("PIN set ✓");}
+    else finishGate("");
+  }
+}
+function logout(){try{localStorage.removeItem(LOGIN_KEY);}catch(e){}sessionStorage.removeItem("prerak-unlk");location.reload();}
+{const e=gateEl("lgEnter");if(e)e.addEventListener("click",handleGate);}
+["lgName","lgPin"].forEach(id=>{const el=gateEl(id);if(el){el.addEventListener("keydown",ev=>{if(ev.key==="Enter")handleGate();});el.addEventListener("input",()=>el.classList.remove("err"));}});
+{const f=gateEl("lgForgot");if(f)f.addEventListener("click",()=>{if(confirm("Reset your PIN? You can set a new one anytime in Profile. Your saved data stays.")){profile.pin="";saveProfile();finishGate("PIN reset — set a new one in Profile");}});}
+{const lo=gateEl("pfLogout");if(lo)lo.addEventListener("click",()=>{if(confirm("Sign out of EstimatePro ERP? Your saved data stays on this device."))logout();});}
+
 //// ===== init =====
 function boot(){
   state.cat="home"; // always land on dashboard
-  if(!profile){profile=JSON.parse(JSON.stringify(DEFAULT_PROFILE));applyTheme();renderNav();switchCat();renderQuote();applyProfile();renderNav();openProfile(true);}
-  else{applyTheme();renderNav();switchCat();renderQuote();applyProfile();renderNav();if(profile.pin&&sessionStorage.getItem("prerak-unlk")!=="1")showLock();}
-  renderTrialBanner();syncLicUI();enforceLicense();
+  __freshProfile=!profile;
+  if(!profile)profile=JSON.parse(JSON.stringify(DEFAULT_PROFILE));
+  applyTheme();renderNav();switchCat();renderQuote();applyProfile();renderNav();
+  renderTrialBanner();syncLicUI();
+  initNoticeBoard();
+  if(needsGate()){showGate();return;}
+  afterLogin();
+}
+function afterLogin(){
+  if(__freshProfile){openProfile(true);}
+  enforceLicense();
   maybeShowOnboarding();
 }
 function maybeShowOnboarding(){
