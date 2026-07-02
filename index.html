@@ -25,11 +25,12 @@
     --accent:#1a3a6e; --accent-text:#ffffff;
   }
   *{box-sizing:border-box;margin:0;padding:0}
+  button:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
   html,body{height:100%}
   body{font-family:var(--ui-font);color:var(--ink);background:var(--canvas);-webkit-font-smoothing:antialiased;overflow:hidden}
 
   /* ============ SHELL: sidebar + workspace ============ */
-  .shell{display:grid;grid-template-columns:250px 1fr;height:100vh}
+  .shell{display:grid;grid-template-columns:250px 1fr;height:100vh;height:100dvh}
 
   /* ---------- sidebar ---------- */
   .sidebar{background:var(--navy-d);color:#dbe3f0;display:flex;flex-direction:column;min-height:0;position:relative}
@@ -78,8 +79,8 @@
   .sb-foot .fbtn svg{width:14px;height:14px}
 
   /* ---------- workspace ---------- */
-  .workspace{overflow-y:auto;min-height:0;background:var(--canvas);background-image:radial-gradient(circle at 1px 1px, rgba(26,58,110,.06) 1px, transparent 0);background-size:22px 22px;display:flex;flex-direction:column}
-  .ws-top{position:sticky;top:0;z-index:10;background:rgba(238,241,246,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:15px 30px;display:flex;align-items:center;gap:16px}
+  .workspace{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;min-height:0;background:var(--canvas);background-image:radial-gradient(circle at 1px 1px, rgba(26,58,110,.06) 1px, transparent 0);background-size:22px 22px;display:flex;flex-direction:column}
+  .ws-top{position:sticky;top:0;z-index:10;background:#eef1f6;border-bottom:1px solid var(--line);padding:15px 30px;display:flex;align-items:center;gap:16px}
   .ws-top .wt{min-width:0}
   .ws-top .wt h2{font-size:18px;font-weight:700;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
   .ws-top .wt h2 .chip{background:var(--navy);color:#fff;font-size:10px;font-family:var(--mono);font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.04em}
@@ -167,7 +168,7 @@
   .numbox input::-webkit-outer-spin-button,.numbox input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 
   /* ============ overlays ============ */
-  .overlay{position:fixed;inset:0;background:rgba(19,33,58,.5);backdrop-filter:blur(3px);z-index:50;display:flex;align-items:stretch;justify-content:flex-end;opacity:0;pointer-events:none;transition:opacity .25s}
+  .overlay{position:fixed;inset:0;background:rgba(19,33,58,.5);z-index:50;display:flex;align-items:stretch;justify-content:flex-end;opacity:0;pointer-events:none;transition:opacity .25s}
   .overlay.open{opacity:1;pointer-events:auto}
   .overlay.center{align-items:center;justify-content:center}
   .drawer{width:600px;max-width:100%;background:var(--canvas);height:100%;display:flex;flex-direction:column;box-shadow:-12px 0 40px rgba(0,0,0,.25);transform:translateX(40px);transition:transform .28s cubic-bezier(.22,.7,.3,1)}
@@ -355,11 +356,12 @@
 
   /* lock screen — smooth */
   .lock{position:fixed;inset:0;z-index:80;background:radial-gradient(circle at 20% 15%,#1c3a6b 0%,#13213a 45%,#0a1124 100%);display:flex;align-items:center;justify-content:center;color:#fff;opacity:0;pointer-events:none;transition:opacity .4s ease;overflow:hidden}
+  .lock::before,.lock::after{pointer-events:none}
   .lock::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(224,153,42,.32),transparent 62%);top:-160px;right:-150px;filter:blur(38px);animation:lockBlob 13s ease-in-out infinite}
   .lock::after{content:"";position:absolute;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(45,128,224,.34),transparent 62%);bottom:-200px;left:-170px;filter:blur(42px);animation:lockBlob 16s ease-in-out infinite reverse}
   @keyframes lockBlob{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,40px) scale(1.12)}}
   .lock.show{opacity:1;pointer-events:auto}
-  .lock-card{position:relative;text-align:center;width:300px;padding:34px 28px 30px;border-radius:24px;background:rgba(255,255,255,.07);backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);border:1px solid rgba(255,255,255,.16);box-shadow:0 24px 70px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.18);transform:translateY(14px) scale(.97);opacity:.6;transition:.45s cubic-bezier(.22,.7,.3,1)}
+  .lock-card{position:relative;z-index:1;text-align:center;width:300px;padding:34px 28px 30px;border-radius:24px;background:rgba(255,255,255,.07);backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);border:1px solid rgba(255,255,255,.16);box-shadow:0 24px 70px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.18);transform:translateY(14px) scale(.97);opacity:.6;transition:.45s cubic-bezier(.22,.7,.3,1)}
   /* electric animated border */
   .lock-card::before{content:"";position:absolute;inset:-2px;border-radius:26px;padding:2px;background:conic-gradient(from 0deg,transparent 0deg,#e0992a 40deg,#2d80e0 110deg,transparent 170deg,transparent 200deg,#2d80e0 250deg,#e0992a 320deg,transparent 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;animation:elecSpin 4s linear infinite;opacity:.9;pointer-events:none}
   @keyframes elecSpin{to{transform:rotate(360deg)}}
@@ -399,7 +401,7 @@
   .hamburger{display:none;width:40px;height:40px;border:1px solid var(--line);background:var(--paper);border-radius:10px;cursor:pointer;align-items:center;justify-content:center;flex:none;color:var(--ink)}
   .hamburger:hover{border-color:var(--navy);color:var(--navy)}
   .hamburger svg{width:21px;height:21px}
-  .sb-backdrop{position:fixed;inset:0;background:rgba(19,33,58,.5);backdrop-filter:blur(2px);z-index:39;opacity:0;pointer-events:none;transition:opacity .25s}
+  .sb-backdrop{position:fixed;inset:0;background:rgba(19,33,58,.5);z-index:39;opacity:0;pointer-events:none;transition:opacity .25s}
   body.nav-open .sb-backdrop{opacity:1;pointer-events:auto}
   .sb-close{display:none}
 
@@ -435,7 +437,7 @@
   .home-actions button svg{width:16px;height:16px}
 
   /* ===== Phase 2: dashboard ===== */
-  .dash-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .dash-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:12px}
   @media(max-width:760px){.dash-metrics{grid-template-columns:repeat(2,1fr)}}
   .metric{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:16px 17px;overflow:hidden}
   .metric::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--mc,var(--navy))}
@@ -471,6 +473,25 @@
   .crm-search{display:flex;align-items:center;gap:8px;background:var(--canvas);border:1px solid var(--line-strong);border-radius:9px;padding:0 11px;margin-bottom:13px}
   .crm-search svg{width:15px;height:15px;color:var(--ink-soft);flex:none}
   .crm-search input{flex:1;border:none;background:transparent;outline:none;font-family:inherit;font-size:13px;color:var(--ink);padding:10px 0}
+  .proj-filter{display:flex;gap:6px;margin:-4px 0 13px;flex-wrap:wrap}
+  .proj-filter button{border:1px solid var(--line-strong);background:var(--paper);color:var(--ink-soft);font-family:var(--mono);font-size:10.5px;font-weight:700;padding:6px 12px;border-radius:20px;cursor:pointer;transition:.13s}
+  .proj-filter button:hover{border-color:var(--navy);color:var(--navy)}
+  .proj-filter button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+  .pay-list{display:flex;flex-direction:column;gap:5px;margin-top:9px;border-top:1px dashed var(--line-strong);padding-top:9px}
+  .pay-list:empty{display:none}
+  .pay-row{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink-soft)}
+  .pay-row .pd{font-family:var(--mono);font-size:10px;flex:none;color:var(--ink-soft)}
+  .pay-row .pn{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pay-row .pa{font-family:var(--mono);font-weight:700;color:#1c7a44}
+  .pay-row .px{border:none;background:transparent;color:var(--ink-soft);cursor:pointer;font-size:12px;padding:0 3px;border-radius:5px}
+  .pay-row .px:hover{color:#c0392b;background:rgba(192,57,43,.1)}
+  .pay-add{display:flex;gap:7px;margin-top:9px}
+  .pay-add input{border:1px solid var(--line-strong);background:var(--paper);border-radius:8px;padding:7px 10px;font-family:inherit;font-size:12px;color:var(--ink);outline:none;min-width:0}
+  .pay-add input:focus{border-color:var(--navy)}
+  .pay-add .pay-amt{width:98px;flex:none}
+  .pay-add .pay-note{flex:1}
+  .pay-add .pay-btn{border:none;background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:0 13px;border-radius:8px;cursor:pointer;flex:none}
+  .pay-add .pay-btn:hover{background:var(--navy-d)}
   .ccard{background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden}
   .ccard-h{display:flex;align-items:center;gap:11px;padding:12px 13px;cursor:pointer}
   .ccard-h .pic{width:38px;height:38px;border-radius:9px;background:color-mix(in srgb,var(--navy) 12%,#fff);color:var(--navy);display:flex;align-items:center;justify-content:center;flex:none;font-family:var(--mono);font-weight:700;font-size:14px}
@@ -1065,7 +1086,7 @@
   .launch{min-width:0}
   .launch .lt{min-width:0;overflow:hidden}
   .launch .ln,.launch .ld{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;max-width:100%}
-  .dash-metrics,.home-stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .dash-metrics,.home-stats{grid-template-columns:repeat(auto-fit,minmax(148px,1fr))}
   @media(max-width:760px){.dash-metrics,.home-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
   .metric .mv{overflow:hidden;text-overflow:ellipsis}
   #helpOverlay ol li > span:first-child::before{content:counter(step)}
@@ -1190,7 +1211,7 @@
       <div class="ws-col" id="homeView">
         <div class="notice-board" id="noticeBoard" role="status" style="display:none">
           <span class="nb-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v3a1 1 0 0 0 1 1h2l3.3 3.3a1 1 0 0 0 1.7-.7V7.4a1 1 0 0 0-1.7-.7L6 10H4a1 1 0 0 0-1 1z"/><path d="M16 9a3 3 0 0 1 0 6M19.5 6.5a7 7 0 0 1 0 11"/></svg></span>
-          <span class="nb-txt"><b>What's new</b> — Premium dashboard polish &amp; NPR (रू) pricing now live. Need a license or support?</span>
+          <span class="nb-txt"><b>What's new</b> — Sequential quotation numbers, payment ledger with balance tracking, project search, custom VAT %, keyboard shortcuts &amp; receivables dashboard. Need a license or support?</span>
           <a class="nb-cta" id="noticeWa" href="https://wa.me/9779801069733?text=Hi%20Asraya%20Create%2C%20I%20need%20EstimatePro%20ERP%20license%2Fsupport." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6 0-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20z"/></svg><span>Chat support</span></a>
           <button class="nb-x" id="noticeClose" aria-label="Dismiss notice">×</button>
         </div>
@@ -1275,6 +1296,7 @@
         </div>
         <div class="cfield full"><label>Show on print</label><select id="cDatePrint"><option value="both">Both (BS + AD)</option><option value="np">Nepali (BS) only</option><option value="en">English (AD) only</option></select></div>
         <div class="cfield full"><label>Document type</label><select id="cDocType"><option>Quotation</option><option>Project Proposal</option><option>Tax Invoice</option><option>FF&amp;E Schedule</option><option>Estimate</option></select></div>
+        <div class="cfield full"><label>Quotation No. <span style="font-weight:400;text-transform:none;letter-spacing:0;opacity:.65">— auto, sequential</span></label><input id="cQno" readonly placeholder="Assigned on first Preview / Print" style="font-family:var(--mono);letter-spacing:.04em"></div>
         <button class="full" id="cSaveClient" style="border:1px solid var(--line-strong);background:var(--canvas);color:var(--ink);font-family:var(--mono);font-size:11px;font-weight:700;padding:9px;border-radius:8px;cursor:pointer">＋ Save client to address book</button>
       </div>
       <div class="qadd">
@@ -1372,6 +1394,7 @@
         <div class="cfield"><label>Currency</label>
           <span class="chips" id="pfCurrency"><button data-val="Rs">Rs</button><button data-val="रू">रू</button><button data-val="₹">₹</button><button data-val="$">$</button></span>
         </div>
+        <div class="cfield"><label>VAT rate (%)</label><input id="pfVat" type="number" min="0" max="100" step="0.1" placeholder="13"></div>
         <div class="cfield full"><label>PIN lock (4 digits — optional)</label><input id="pfPin" maxlength="4" inputmode="numeric" placeholder="••••"></div>
         <div class="cfield full"><label>Default Project Contract / Agreement Terms</label><textarea id="pfContract" rows="5" placeholder="Payment milestones, validity, scope… (prints at the end of the proposal with dual signature lines)" style="width:100%;border:1px solid var(--line-strong);background:var(--canvas);border-radius:9px;padding:10px 12px;font-family:inherit;font-size:12.5px;color:var(--ink);outline:none;resize:vertical;line-height:1.5"></textarea></div>
       </div>
@@ -1398,7 +1421,7 @@
           <div class="vendor-contact">
             <a class="vc-wa" href="https://wa.me/9779801069733?text=Hi%20Asraya%20Create%2C%20I%20want%20to%20buy%2Factivate%20EstimatePro%20ERP%20license." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.5-5.6c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6 0-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>WhatsApp</a>
             <a class="vc-call" href="tel:9801069733"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.5-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg>Call</a>
-            <a class="vc-mail" href="/cdn-cgi/l/email-protection#9cfdefeefde5fdffeef9fde8f9b2fdffdcfbf1fdf5f0b2fff3f1a3efe9fef6f9ffe8a1d9efe8f5f1fde8f9cceef3b9aeacd9ceccb9aeacd0f5fff9f2eff9"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 7-10 6L2 7"/></svg>Email</a>
+            <a class="vc-mail" href="/cdn-cgi/l/email-protection#49283a3b2830282a3b2c283d2c67282a092e24282025672a2624763a3c2b232c2a3d740c3a3d2024283d2c193b266c7b790c1b196c7b7905202a2c273a2c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 7-10 6L2 7"/></svg>Email</a>
           </div>
         </div>
       </div>
@@ -1435,7 +1458,7 @@
     <div class="vendor-contact">
       <a class="vc-wa" href="https://wa.me/9779801069733?text=Hi%20Asraya%20Create%2C%20my%20EstimatePro%20ERP%20trial%20ended.%20I%20want%20a%20license." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.5-5.6c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6 0-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>WhatsApp</a>
       <a class="vc-call" href="tel:9801069733"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.5-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg>Call</a>
-      <a class="vc-mail" href="/cdn-cgi/l/email-protection#04657776657d656776616570612a6567446369656d682a676b693b7771666e616770394177706d6965706154766b213634415654213634486d67616a7761"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 7-10 6L2 7"/></svg>Email</a>
+      <a class="vc-mail" href="/cdn-cgi/l/email-protection#117062637068707263747065743f707251767c70787d3f727e7c2e6264737b7472652c546265787c70657441637e3423215443413423215d7872747f6274"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 7-10 6L2 7"/></svg>Email</a>
     </div>
   </div>
 </div>
@@ -1453,7 +1476,7 @@
         <li><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 5a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6"/></svg></span>Clients &amp; Projects CRM</li>
         <li><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17l9-9"/></svg></span>Works fully offline on any device</li>
       </ul>
-      <div class="lg-by">Powered by <b>Asraya Create</b><br><a href="https://wa.me/9779801069733?text=Hi%20Asraya%20Create%2C%20I%20use%20EstimatePro%20ERP." target="_blank" rel="noopener">WhatsApp 9801069733</a> · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bedfcdccdfc7dfddccdbdfcadb90dfddfed9d3dfd7d290ddd1d3">[email&#160;protected]</a></div>
+      <div class="lg-by">Powered by <b>Asraya Create</b><br><a href="https://wa.me/9779801069733?text=Hi%20Asraya%20Create%2C%20I%20use%20EstimatePro%20ERP." target="_blank" rel="noopener">WhatsApp 9801069733</a> · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="33524041524a525041565247561d525073545e525a5f1d505c5e">[email&#160;protected]</a></div>
     </div>
     <div class="lg-form">
       <h2 id="lgTitle">Welcome 👋</h2>
@@ -1483,13 +1506,22 @@
         <li style="display:flex;gap:13px"><span style="counter-increment:step;flex:none;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center"></span><div><b style="color:var(--ink)">Make a quotation</b><div style="font-size:12.5px;color:var(--ink-soft);line-height:1.55">Open <b>BOQ / Quotation</b>, add client details, apply discount/VAT, then <b>Print / PDF</b> or share on WhatsApp.</div></div></li>
         <li style="display:flex;gap:13px"><span style="counter-increment:step;flex:none;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center"></span><div><b style="color:var(--ink)">Save projects &amp; back up</b><div style="font-size:12.5px;color:var(--ink-soft);line-height:1.55">Save each estimate as a <b>Project</b> to track clients &amp; advances. Regularly <b>Export</b> a backup (Profile → Data) to keep your data safe.</div></div></li>
       </ol>
+      <div style="margin-top:6px;border:1px solid var(--line);border-radius:12px;padding:13px 15px;background:var(--canvas)">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:9px">Keyboard shortcuts</div>
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:12.5px;color:var(--ink-soft)">
+          <b style="font-family:var(--mono);color:var(--ink);font-size:11.5px">Ctrl / ⌘ + B</b><span>Open or close BOQ / Quotation</span>
+          <b style="font-family:var(--mono);color:var(--ink);font-size:11.5px">Ctrl / ⌘ + P</b><span>Print / PDF (when BOQ is open)</span>
+          <b style="font-family:var(--mono);color:var(--ink);font-size:11.5px">Ctrl / ⌘ + S</b><span>Save BOQ to the active project</span>
+          <b style="font-family:var(--mono);color:var(--ink);font-size:11.5px">Esc</b><span>Close the current panel</span>
+        </div>
+      </div>
       <div style="margin-top:20px;padding:16px;background:var(--canvas);border:1px solid var(--line);border-radius:12px">
         <div style="font-weight:700;color:var(--ink);font-size:13px;margin-bottom:4px">Need help or a license?</div>
         <div style="font-size:12px;color:var(--ink-soft);margin-bottom:10px">Support by Asraya Create — we usually reply within a day.</div>
         <div class="vendor-contact" style="margin-top:0">
           <a class="vc-wa" href="https://wa.me/9779801069733?text=Hi%20Asraya%20Create%2C%20I%20need%20help%20with%20EstimatePro%20ERP." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.5-5.6c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6 0-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>WhatsApp</a>
           <a class="vc-call" href="tel:9801069733"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.5-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg>Call</a>
-          <a class="vc-mail" href="/cdn-cgi/l/email-protection#91f0e2e3f0e8f0f2e3f4f0e5f4bff0f2d1f6fcf0f8fdbff2fefcaee2e4f3fbf4f2e5acd4e2e5f8fcf0e5f4c1e3feb4a3a1d4c3c1b4a3a1d9f4fde1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 7-10 6L2 7"/></svg>Email</a>
+          <a class="vc-mail" href="/cdn-cgi/l/email-protection#1a7b69687b637b79687f7b6e7f347b795a7d777b73763479757725696f78707f796e275f696e73777b6e7f4a68753f282a5f484a3f282a527f766a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 7-10 6L2 7"/></svg>Email</a>
         </div>
       </div>
     </div>
@@ -1512,6 +1544,8 @@
       <datalist id="clientList"></datalist>
       <div id="projActive"></div>
       <div class="pm-sec">Saved projects</div>
+      <div class="crm-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input id="projSearch" placeholder="Search projects — name, client or site…"></div>
+      <div class="proj-filter" id="projFilter"><button data-st="" aria-pressed="true">All</button><button data-st="Draft">Draft</button><button data-st="Sent">Sent</button><button data-st="Approved">Approved</button></div>
       <div class="pm-list" id="projList"></div>
       <input type="file" id="photoInput" accept="image/*" multiple style="display:none">
     </div>
@@ -1818,7 +1852,7 @@ const DEFAULT_PROFILE={
   company:"Your Company Name",
   tagline:"Construction & Engineering",
   address:"",website:"",
-  phone:"",phone2:"",email:"info@yourcompany.com",initials:"YC",logoImg:"",currency:"रू",pin:"",theme:"prerak",
+  phone:"",phone2:"",email:"info@yourcompany.com",initials:"YC",logoImg:"",currency:"रू",vatRate:13,pin:"",theme:"prerak",
   license:{plan:"Pro",validUntil:"Lifetime",key:""},
   contract:"1. This agreement is valid for 15 days from the date of proposal.\n2. Payment milestones: 40% advance to commence work, 40% on completion of structure/mid-stage, 20% on final handover.\n3. Scope covers only the items listed in the BOQ/schedule above; any additional work will be quoted separately.\n4. Material rates may vary with market conditions; major variations will be communicated in advance.\n5. Project timeline will be mutually agreed in writing before commencement.\n6. Any dispute shall be settled amicably as per prevailing local laws.",
   rates:{cement:{v:800,u:"bag"},sand:{v:60,u:"cft"},agg:{v:80,u:"cft"},steel:{v:110,u:"kg"},brick:{v:18,u:"pc"},tile:{v:95,u:"sft"},paint:{v:650,u:"L"},primer:{v:350,u:"L"},putty:{v:45,u:"kg"},gypsum:{v:85,u:"sft"},channel:{v:60,u:"rft"},sheet:{v:950,u:"pc"},trussRate:{v:115,u:"kg"},purlin:{v:115,u:"kg"},ridge:{v:140,u:"rft"},bolt:{v:15,u:"pc"},mspaint:{v:550,u:"L"},upvc:{v:950,u:"sft"},kitchen:{v:1850,u:"rft"},wardrobe:{v:1600,u:"sft"},ply:{v:2600,u:"sheet"},solar:{v:90,u:"watt"},elec:{v:1200,u:"pt"},plumb:{v:1500,u:"pt"},earth:{v:35,u:"cft"},bindwire:{v:120,u:"kg"},formwork:{v:55,u:"sft"},dpc:{v:48,u:"sft"},aac:{v:62,u:"sft"},aacblock:{v:78,u:"pc"},aacglue:{v:680,u:"bag"},prefab:{v:185,u:"sft"},parquet:{v:165,u:"sft"},underlay:{v:18,u:"sft"},skylight:{v:850,u:"sft"}},
@@ -2018,6 +2052,8 @@ function renderHome(){
   document.getElementById("homeTag").textContent=p.tagline||"Construction & Engineering";
   // ---- metrics ----
   const quoted=PROJECTS.reduce((s,pr)=>s+boqGrand(pr.boq),0);
+  const recvT=PROJECTS.reduce((s,pr)=>s+((Array.isArray(pr.payments)?pr.payments.reduce((a,e)=>a+(+e.amt||0),0):(+pr.advance||0))),0);
+  const balT=Math.max(0,quoted-recvT);
   const active=PROJECTS.filter(pr=>(pr.status||"Draft")!=="Approved").length;
   const cur=p.currency;
   const metrics=[
@@ -2025,6 +2061,7 @@ function renderHome(){
     {c:"#2a6fb0",i:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/>',v:PROJECTS.length,l:"Total Quotations"},
     {c:"var(--gold)",i:'<path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',v:`<span class="mvc">${cur}</span>${Math.round(quoted).toLocaleString('en-IN')}`,l:"Total Quoted Amount"},
     {c:"#1c7a44",i:'<path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/>',v:active,l:"Active Projects"},
+    {c:"#b0472a",i:'<path d="M21 12V7H5a2 2 0 0 1 0-4h14v4M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/>',v:`<span class="mvc">${cur}</span>${Math.round(balT).toLocaleString('en-IN')}`,l:"Balance Receivable"},
   ];
   document.getElementById("homeStats").innerHTML=metrics.map(m=>`<div class="metric" style="--mc:${m.c}"><div class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${m.i}</svg></div><div class="mv">${m.v}</div><div class="ml">${m.l}</div></div>`).join("");
   // ---- status bar chart ----
@@ -2382,7 +2419,10 @@ function amountInWordsNep(n){
   if(rest)out+=seg(rest)+" ";
   return "अक्षरेपी: "+out.trim().replace(/\s+/g," ")+" मात्रै।";
 }
-function totalsCalc(){const q=state.quote,sub=q.items.reduce((s,it)=>s+it.amount,0),disc=sub*q.discount/100,after=sub-disc,vat=q.vat?after*0.13:0;return{sub,disc,after,vat,grand:after+vat};}
+function vatPct(){const v=parseFloat(profile&&profile.vatRate);return isFinite(v)&&v>=0&&v<=100?v:13;}
+function nextQuoteNo(){let n=(parseInt(localStorage.getItem("ep-qseq"),10)||0)+1;try{localStorage.setItem("ep-qseq",n);}catch(e){}return "QTN-"+new Date().getFullYear()+"-"+String(n).padStart(4,"0");}
+function ensureQuoteNo(){if(!state.quote.qno){state.quote.qno=nextQuoteNo();save();}const el=document.getElementById("cQno");if(el)el.value=state.quote.qno;return state.quote.qno;}
+function totalsCalc(){const q=state.quote,sub=q.items.reduce((s,it)=>s+it.amount,0),disc=sub*q.discount/100,after=sub-disc,vat=q.vat?after*vatPct()/100:0;return{sub,disc,after,vat,grand:after+vat};}
 // BOQ row helpers
 function numFmt(n){n=parseFloat(n)||0;return Number.isInteger(n)?String(n):n.toFixed(2);}
 function boqUnitOptions(u){let opts=BOQ_UNITS.slice();if(u&&!opts.some(x=>x.toLowerCase()===String(u).toLowerCase()))opts=[u].concat(opts);return opts.map(x=>`<option ${String(x).toLowerCase()===String(u||"").toLowerCase()?"selected":""}>${x}</option>`).join("");}
@@ -2504,6 +2544,7 @@ function renderQuote(){
   const bsEl=document.getElementById("cDateBS");if(bsEl)bsEl.value=q.dateBS||"";
   const dpEl=document.getElementById("cDatePrint");if(dpEl)dpEl.value=q.datePrint||"both";
   const dt=document.getElementById("cDocType");if(dt){dt.value=q.docType||"Quotation";}
+  {const qn=document.getElementById("cQno");if(qn)qn.value=q.qno||"";}
   const detailed=q.view==="detailed";
   let body="",sn=0;
   q.items.forEach((it,i)=>{
@@ -2566,7 +2607,7 @@ function renderQuote(){
   totalsEl.innerHTML=`
     <div class="tline"><span>Subtotal (${q.items.length} items)</span><span>${money(t.sub)}</span></div>
     <div class="tline"><span class="adj">Discount <input id="discIn" type="number" min="0" max="100" value="${q.discount}">%</span><span>− ${money(t.disc)}</span></div>
-    <div class="tline"><span class="adj">VAT 13% <button class="tog" id="vatTog" aria-pressed="${q.vat}"></button></span><span>${money(t.vat)}</span></div>
+    <div class="tline"><span class="adj">VAT ${vatPct()}% <button class="tog" id="vatTog" aria-pressed="${q.vat}"></button></span><span>${money(t.vat)}</span></div>
     <div class="tline grand"><span>Grand Total</span><span>${money(t.grand)}</span></div>
     <div class="amt-words" id="amtWords">${t.grand>0?"<b>In words:</b> "+amountInWords(t.grand):""}</div>
     <div class="amt-words amt-words-np" id="amtWordsNp">${t.grand>0?amountInWordsNep(t.grand):""}</div>`;
@@ -2674,6 +2715,7 @@ document.getElementById("xlsQuote").addEventListener("click",()=>{
   rows.push([(q.docType||"Quotation")+(q.project?" — "+q.project:"")]);
   if(q.client)rows.push(["Client:",q.client,q.phone||"",q.site||""]);
   rows.push(["Date:",quoteDateStr()]);
+  rows.push(["Ref:",ensureQuoteNo()]);
   rows.push([]);
   rows.push(["S.N.","Description of Work","Qty","Unit","Rate ("+cur+")","Amount ("+cur+")"]);
   q.items.forEach((it,i)=>{
@@ -2683,7 +2725,7 @@ document.getElementById("xlsQuote").addEventListener("click",()=>{
   rows.push([]);
   rows.push(["","","","","Subtotal",Math.round(t.sub)]);
   if(q.discount>0)rows.push(["","","","","Discount ("+q.discount+"%)",-Math.round(t.disc)]);
-  if(q.vat)rows.push(["","","","","VAT (13%)",Math.round(t.vat)]);
+  if(q.vat)rows.push(["","","","","VAT ("+vatPct()+"%)",Math.round(t.vat)]);
   rows.push(["","","","","Grand Total",Math.round(t.grand)]);
   rows.push([]);rows.push(["Amount in words:",amountInWords(t.grand)]);
   const csv="\uFEFF"+rows.map(r=>r.map(csvCell).join(",")).join("\r\n");
@@ -2695,14 +2737,14 @@ document.getElementById("xlsQuote").addEventListener("click",()=>{
 document.getElementById("quoteBtn").addEventListener("click",()=>{if(!ensureLicensed())return;renderQuote();overlay.classList.add("open");});
 document.getElementById("closeDrawer").addEventListener("click",()=>overlay.classList.remove("open"));
 overlay.addEventListener("click",e=>{if(e.target===overlay)overlay.classList.remove("open");});
-document.getElementById("clearQuote").addEventListener("click",()=>{if(state.quote.items.length&&!confirm("Clear all items?"))return;state.quote.items=[];save();renderQuote();});
+document.getElementById("clearQuote").addEventListener("click",()=>{if(state.quote.items.length&&!confirm("Clear all items? A fresh quotation number will be issued for the next document."))return;state.quote.items=[];state.quote.qno=null;save();renderQuote();});
 document.getElementById("addBtn").addEventListener("click",addToQuote);
 
 //// ===== quotation document (shared by Preview + Print) =====
 function boqCols(r){const m=boqMat(r),parts=m.qty.split(" "),unit=parts.pop();return{num:parts.join(" "),unit,rate:m.rate,amt:m.amt};}
 function buildQuoteHTML(){
   const q=state.quote,detailed=q.view==="detailed",t=totalsCalc(),p=profile,ffe=!!q.ffe;
-  const date=quoteDateStr(),qid="Q-"+Date.now().toString().slice(-6);
+  const date=quoteDateStr(),qid=ensureQuoteNo();
   let rows="",sn=0;
   q.items.forEach(it=>{sn++;
     const perUnit=it.analyzed?money(it.rate||0):(it.lineItem?money(it.rate):((!it.custom&&it.qty>0)?money(it.amount/it.qty):""));
@@ -2773,7 +2815,7 @@ function buildQuoteHTML(){
       <table class="doc-tbl pro${ffe?' ffe':''}">${tblHead}<tbody>${rows}
         ${gtot}
       </tbody></table>
-      ${(q.discount>0||q.vat)?`<div class="doc-adj">${q.discount>0?`Subtotal ${money(t.sub)} − Discount ${q.discount}% = ${money(t.after)}. `:""}${q.vat?`Incl. VAT 13% (${money(t.vat)}).`:""}</div>`:""}
+      ${(q.discount>0||q.vat)?`<div class="doc-adj">${q.discount>0?`Subtotal ${money(t.sub)} − Discount ${q.discount}% = ${money(t.after)}. `:""}${q.vat?`Incl. VAT ${vatPct()}% (${money(t.vat)}).`:""}</div>`:""}
       <div class="doc-words"><b>Amount in Words:</b> ${amountInWords(t.grand)}</div>
       <div class="doc-words doc-words-np">${amountInWordsNep(t.grand)}</div>
       ${termsHtml}
@@ -2790,16 +2832,21 @@ function buildQuoteHTML(){
 }
 
 //// ===== print =====
+function warnNoClient(){
+  if((state.quote.client||"").trim())return true;
+  return confirm("Client name is empty — the document will print with a blank client. Continue anyway?");
+}
 document.getElementById("printQuote").addEventListener("click",()=>{
   if(!ensureLicensed())return;
   if(!state.quote.items.length){toast("BOQ is empty");return;}
+  if(!warnNoClient())return;
   document.getElementById("printArea").innerHTML=buildQuoteHTML();
   window.print();
 });
 function esc(s){return(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
 
 //// ===== data management: export / import =====
-const DM_KEYS=["prerak-profile","prerak-est","prerak-projects","prerak-clients","prerak-active"];
+const DM_KEYS=["prerak-profile","prerak-est","prerak-projects","prerak-clients","prerak-active","ep-qseq"];
 document.getElementById("dmExport").addEventListener("click",()=>{
   const dump={_app:"EstimatePro ERP",_version:15,_exported:new Date().toISOString(),data:{}};
   DM_KEYS.forEach(k=>{const v=localStorage.getItem(k);if(v!=null)dump.data[k]=v;});
@@ -2866,6 +2913,7 @@ function openProfile(setup){
   {const pp=document.getElementById("pfPin");if(pp)pp.placeholder=p.pin?"•••• (PIN set — leave blank to keep)":"••••";}
   const lic=p.license||DEFAULT_PROFILE.license;document.getElementById("licPlan").textContent=isPro()?"PRO (Lifetime)":"Trial";document.getElementById("licValid").textContent=isPro()?"Lifetime":(daysLeft()+" days left");document.getElementById("licKey").value=isPro()?LIC.key:"";
   document.querySelectorAll("#pfCurrency button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.val===p.currency));
+  {const pv=document.getElementById("pfVat");if(pv)pv.value=(p.vatRate!=null?p.vatRate:13);}
   const pc=document.getElementById("pfContract");if(pc)pc.value=(p.contract!=null?p.contract:DEFAULT_CONTRACT);
   renderPfLogo();renderPfSigStamp();
   document.getElementById("pfCancel").style.display=setup?"none":"";
@@ -2904,6 +2952,7 @@ document.getElementById("pfSave").addEventListener("click",()=>{
     email:document.getElementById("pfEmail").value.trim(),
     initials:(document.getElementById("pfInitials").value.trim()||"PRK").toUpperCase(),
     logoImg:pfLogoTmp,signImg:pfSigTmp,stampImg:pfStampTmp,currency:cur?cur.dataset.val:"रू",
+    vatRate:(function(){const el=document.getElementById("pfVat"),v=el?parseFloat(el.value):NaN;return isFinite(v)&&v>=0&&v<=100?v:13;})(),
     pin:(function(){var v=document.getElementById("pfPin").value.replace(/\D/g,"");if(!v)return (profile&&profile.pin)||"";return _pinSet(v);})(),
     contract:document.getElementById("pfContract")?document.getElementById("pfContract").value:(profile&&profile.contract),
   });
@@ -2948,11 +2997,13 @@ function pmSave(){localStorage.setItem("prerak-projects",JSON.stringify(PROJECTS
 function clSaveLS(){localStorage.setItem("prerak-clients",JSON.stringify(CLIENTS));}
 function setActive(id){activeProjectId=id;if(id)localStorage.setItem("prerak-active",id);else localStorage.removeItem("prerak-active");}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
-function boqGrand(boq){if(!boq||!boq.items)return 0;const sub=boq.items.reduce((s,it)=>s+(it.amount||0),0),disc=sub*(boq.discount||0)/100,after=sub-disc,vat=boq.vat?after*0.13:0;return after+vat;}
-function snapshotBOQ(){return JSON.parse(JSON.stringify({items:state.quote.items,discount:state.quote.discount,vat:state.quote.vat,view:state.quote.view,client:state.quote.client,phone:state.quote.phone,site:state.quote.site}));}
+function boqGrand(boq){if(!boq||!boq.items)return 0;const sub=boq.items.reduce((s,it)=>s+(it.amount||0),0),disc=sub*(boq.discount||0)/100,after=sub-disc,vat=boq.vat?after*vatPct()/100:0;return after+vat;}
+function snapshotBOQ(){return JSON.parse(JSON.stringify({items:state.quote.items,discount:state.quote.discount,vat:state.quote.vat,view:state.quote.view,client:state.quote.client,phone:state.quote.phone,site:state.quote.site,qno:state.quote.qno||null}));}
 
 const projOverlay=document.getElementById("projOverlay"),cliOverlay=document.getElementById("cliOverlay"),tplOverlay=document.getElementById("tplOverlay");
 function openProjects(){renderProjects();projOverlay.classList.add("open");}
+{const ps=document.getElementById("projSearch");if(ps)ps.addEventListener("input",e=>{window._projTerm=e.target.value;renderProjects();});
+ document.querySelectorAll("#projFilter button").forEach(b=>b.addEventListener("click",()=>{window._projSt=b.dataset.st;document.querySelectorAll("#projFilter button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));renderProjects();}));}
 function openClients(){renderClients();cliOverlay.classList.add("open");}
 function openTemplates(){renderTemplates();tplOverlay.classList.add("open");}
 
@@ -3202,21 +3253,40 @@ function renderProjects(){
   const list=document.getElementById("projList");
   if(!PROJECTS.length){list.innerHTML=`<div class="pm-empty">No projects yet.<br>Create one above, then save your BOQ to it.</div>`;return;}
   list.innerHTML="";
-  PROJECTS.slice().sort((a,b)=>(b.updated||b.created)-(a.updated||a.created)).forEach(p=>{
+  const term=(window._projTerm||"").trim().toLowerCase(),stF=window._projSt||"";
+  const shown=PROJECTS.slice().sort((a,b)=>(b.updated||b.created)-(a.updated||a.created)).filter(p=>{
+    if(stF&&(p.status||"Draft")!==stF)return false;
+    if(term&&!((p.name||"")+" "+(p.client||"")+" "+(p.site||"")).toLowerCase().includes(term))return false;
+    return true;});
+  if(!shown.length){list.innerHTML=`<div class="pm-empty">No matching projects.<br>Try a different search or filter.</div>`;return;}
+  shown.forEach(p=>{
     const card=document.createElement("div");card.className="pcard"+(p.id===activeProjectId?" active":"");
     const items=p.boq&&p.boq.items?p.boq.items.length:0,total=boqGrand(p.boq),photos=(p.photos||[]).length;
+    if(!Array.isArray(p.payments))p.payments=(+p.advance>0)?[{d:p.updated||p.created||Date.now(),amt:+p.advance,note:"Advance"}]:[];
+    const recv=p.payments.reduce((s,e)=>s+(+e.amt||0),0);p.advance=recv;
+    const payDate=ms=>new Date(ms).toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"2-digit"});
     const st=p.status||"Draft";
     card.innerHTML=`<div class="pcard-h"><div class="pic">${esc((p.name||"?")[0].toUpperCase())}</div><div class="pmain"><div class="pn">${esc(p.name)} <span class="st-badge st-${st.toLowerCase()}">${st}</span></div><div class="pd">${esc(p.client||"—")} · ${items} items · ${photos}📷</div></div><div class="pamt">${total>0?money(total):""}</div></div>
       <div class="pcard-body">
         <div class="st-pick"><span>Status</span>${["Draft","Sent","Approved"].map(s=>`<button class="st-opt st-${s.toLowerCase()}" data-st="${s}" aria-pressed="${st===s}">${s}</button>`).join("")}</div>
-        <div class="mile-box"><div class="mile-row"><label>Quoted total</label><div class="mile-val">${total>0?money(total):"—"}</div></div><div class="mile-row"><label>Advance received</label><div class="mile-in"><span>${profile.currency}</span><input type="number" min="0" step="any" class="mile-adv" value="${p.advance||""}" placeholder="0"></div></div><div class="mile-row bal"><label>Balance due</label><div class="mile-val mile-bal">${money(Math.max(0,total-(+p.advance||0)))}</div></div></div>
-        <div class="pcard-acts"><button class="load" data-a="load"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Load BOQ</button><button data-a="save"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2zM17 21v-8H7v8M7 3v5h8"/></svg>Save current</button><button class="del" data-a="del">✕</button></div>
+        <div class="mile-box"><div class="mile-row"><label>Quoted total</label><div class="mile-val">${total>0?money(total):"—"}</div></div><div class="mile-row"><label>Received (${p.payments.length} payment${p.payments.length===1?"":"s"})</label><div class="mile-val" style="color:#1c7a44">${recv>0?money(recv):"—"}</div></div><div class="mile-row bal"><label>Balance due</label><div class="mile-val mile-bal">${money(Math.max(0,total-recv))}</div></div>
+          <div class="pay-list">${p.payments.map((e,pi)=>`<div class="pay-row"><span class="pd">${payDate(e.d)}</span><span class="pn">${esc(e.note||"Payment")}</span><span class="pa">${money(+e.amt||0)}</span><button class="px" data-pi="${pi}" title="Remove payment">✕</button></div>`).join("")}</div>
+          <div class="pay-add"><input type="number" min="0" step="any" class="pay-amt" placeholder="Amount"><input class="pay-note" placeholder="Note — e.g. 2nd installment" maxlength="60"><button class="pay-btn" title="Add payment">＋</button></div>
+        </div>
+        <div class="pcard-acts"><button class="load" data-a="load"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Load BOQ</button><button data-a="save"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2zM17 21v-8H7v8M7 3v5h8"/></svg>Save current</button><button data-a="dup" title="Duplicate project"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Duplicate</button><button class="del" data-a="del">✕</button></div>
         <div class="up-area" data-a="upload"><div class="ut"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg>Upload drawings / site photos</div><div class="us">JPG / PNG — saved to this project</div></div>
         <div class="photo-grid"></div>
       </div>`;
     card.querySelector(".pcard-h").addEventListener("click",()=>card.classList.toggle("open"));
     card.querySelectorAll(".st-opt").forEach(b=>b.addEventListener("click",e=>{e.stopPropagation();p.status=b.dataset.st;pmSave();renderProjects();}));
-    {const adv=card.querySelector(".mile-adv");if(adv){adv.addEventListener("click",e=>e.stopPropagation());adv.addEventListener("input",e=>{p.advance=parseFloat(e.target.value)||0;pmSave();const bal=card.querySelector(".mile-bal");if(bal)bal.textContent=money(Math.max(0,total-(+p.advance||0)));});}}
+    {const box=card.querySelector(".mile-box");if(box)box.addEventListener("click",e=>e.stopPropagation());
+     const addBtn=card.querySelector(".pay-btn"),amtIn=card.querySelector(".pay-amt"),noteIn=card.querySelector(".pay-note");
+     const addPay=()=>{const a=parseFloat(amtIn.value);if(!(a>0)){toast("Enter payment amount");amtIn.focus();return;}p.payments.push({d:Date.now(),amt:a,note:noteIn.value.trim()||"Payment"});p.advance=p.payments.reduce((s,e)=>s+(+e.amt||0),0);p.updated=Date.now();pmSave();renderProjects();toast("Payment recorded ✓");};
+     if(addBtn)addBtn.addEventListener("click",e=>{e.stopPropagation();addPay();});
+     if(amtIn)amtIn.addEventListener("keydown",e=>{if(e.key==="Enter")addPay();});
+     if(noteIn)noteIn.addEventListener("keydown",e=>{if(e.key==="Enter")addPay();});
+     card.querySelectorAll(".pay-row .px").forEach(b=>b.addEventListener("click",e=>{e.stopPropagation();const i=+b.dataset.pi;if(!confirm("Remove this payment entry?"))return;p.payments.splice(i,1);p.advance=p.payments.reduce((s,en)=>s+(+en.amt||0),0);pmSave();renderProjects();}));}
+    card.querySelector('[data-a="dup"]').addEventListener("click",e=>{e.stopPropagation();const c=JSON.parse(JSON.stringify(p));c.id=uid();c.name=(p.name||"Project")+" (Copy)";c.created=c.updated=Date.now();c.status="Draft";c.payments=[];c.advance=0;if(c.boq)c.boq.qno=null;PROJECTS.push(c);pmSave();renderProjects();toast("Project duplicated ✓");});
     card.querySelector('[data-a="load"]').addEventListener("click",e=>{e.stopPropagation();loadProject(p);});
     card.querySelector('[data-a="save"]').addEventListener("click",e=>{e.stopPropagation();p.boq=snapshotBOQ();p.updated=Date.now();setActive(p.id);pmSave();renderProjects();toast("Saved to "+p.name+" ✓");});
     card.querySelector('[data-a="del"]').addEventListener("click",e=>{e.stopPropagation();if(confirm("Delete project '"+p.name+"'?")){PROJECTS=PROJECTS.filter(x=>x.id!==p.id);if(activeProjectId===p.id)setActive(null);pmSave();renderProjects();}});
@@ -3228,7 +3298,7 @@ function renderProjects(){
 function loadProject(p){
   if(!p.boq){toast("This project has no saved BOQ yet");return;}
   state.quote.items=JSON.parse(JSON.stringify(p.boq.items||[]));
-  state.quote.discount=p.boq.discount||0;state.quote.vat=!!p.boq.vat;state.quote.view=p.boq.view||"client";
+  state.quote.discount=p.boq.discount||0;state.quote.vat=!!p.boq.vat;state.quote.view=p.boq.view||"client";state.quote.qno=p.boq.qno||null;
   state.quote.client=p.boq.client||p.client||"";state.quote.phone=p.boq.phone||p.phone||"";state.quote.site=p.boq.site||p.site||"";
   setActive(p.id);save();renderQuote();projOverlay.classList.remove("open");
   overlay.classList.add("open");toast("Loaded "+p.name+" ✓");
@@ -3342,7 +3412,7 @@ function initNoticeBoard(){
   const x=document.getElementById("noticeClose");
   if(x)x.addEventListener("click",()=>{nb.style.display="none";try{localStorage.setItem(NOTICE_VER,"dismissed");}catch(e){}});
 }
-function showExpiry(){const el=document.getElementById("expLock");el.style.display="flex";requestAnimationFrame(()=>el.classList.add("show"));}
+function showExpiry(){const el=document.getElementById("expLock");el.style.display="flex";void el.offsetHeight;el.classList.add("show");}
 function hideExpiry(){const el=document.getElementById("expLock");el.classList.remove("show");setTimeout(()=>{el.style.display="none";},320);}
 function enforceLicense(){if(isExpired())showExpiry();}
 function ensureLicensed(){if(isExpired()){showExpiry();return false;}return true;}
@@ -3431,7 +3501,29 @@ function afterLogin(){
   enforceLicense();
   maybeShowOnboarding();
   backupReminder();
+  initShortcuts();
 }
+// ===== keyboard shortcuts — Esc closes, Ctrl/Cmd+B BOQ, Ctrl/Cmd+P print, Ctrl/Cmd+S save to project =====
+function initShortcuts(){
+  document.addEventListener("keydown",e=>{
+    if(e.key==="Escape"){
+      const pop=document.getElementById("npCalPop");if(pop&&pop.classList.contains("open")){pop.classList.remove("open");return;}
+      const open=[...document.querySelectorAll(".overlay.open")];const top=open[open.length-1];
+      if(top){if(top.id==="pfOverlay"&&typeof pfSetup!=="undefined"&&pfSetup)return;top.classList.remove("open");e.preventDefault();}
+      return;
+    }
+    if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&!e.altKey){
+      const k=(e.key||"").toLowerCase();
+      if(k==="b"){e.preventDefault();if(overlay.classList.contains("open"))overlay.classList.remove("open");else{if(!ensureLicensed())return;renderQuote();overlay.classList.add("open");}}
+      else if(k==="p"&&overlay.classList.contains("open")){e.preventDefault();document.getElementById("printQuote").click();}
+      else if(k==="s"&&overlay.classList.contains("open")){e.preventDefault();
+        const ap=PROJECTS.find(p=>p.id===activeProjectId);
+        if(ap){ap.boq=snapshotBOQ();ap.updated=Date.now();pmSave();toast("Saved to "+ap.name+" ✓");}
+        else{openProjects();toast("Create or choose a project to save this BOQ");}}
+    }
+  });
+}
+
 // gentle, non-intrusive backup nudge — protects buyers from data loss
 function backupReminder(){
   try{
@@ -3450,13 +3542,17 @@ function maybeShowOnboarding(){
   if(isExpired())return; // expiry modal takes priority
   const noProjects=!PROJECTS||PROJECTS.length===0;
   if(!isPro()&&noProjects){
-    const el=document.getElementById("onboard");el.style.display="flex";requestAnimationFrame(()=>el.classList.add("show"));
+    const el=document.getElementById("onboard");el.style.display="flex";void el.offsetHeight;el.classList.add("show");
   }
 }
-document.getElementById("obStart").addEventListener("click",()=>{
-  localStorage.setItem("buildpro-onboarded","1");
-  const el=document.getElementById("onboard");el.classList.remove("show");setTimeout(()=>{el.style.display="none";},320);
-});
+function dismissOnboarding(){
+  try{localStorage.setItem("buildpro-onboarded","1");}catch(e){}
+  const el=document.getElementById("onboard");if(!el)return;
+  el.classList.remove("show");setTimeout(()=>{el.style.display="none";},320);
+  state.cat="home";renderNav();switchCat(); // land the user on the live dashboard
+}
+document.getElementById("obStart").addEventListener("click",dismissOnboarding);
+document.getElementById("onboard").addEventListener("click",e=>{if(e.target.id==="onboard")dismissOnboarding();});
 
 //// ===== BOQ Template Builder =====
 const BOQ_TPL={
